@@ -4,7 +4,7 @@
     <title><![CDATA[Now X Blog]]></title>
     <link href="http://forhappy.github.io/atom.xml" rel="self"/>
     <link href="http://forhappy.github.io/"/>
-    <updated>2015-05-16T21:59:10+08:00</updated>
+    <updated>2015-05-16T22:15:02+08:00</updated>
     <id>http://forhappy.github.io/</id>
     <author>
         <name><![CDATA[forhappy]]></name>
@@ -18,7 +18,41 @@
         <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/"/>
         <updated>2015-05-16T21:58:43+08:00</updated>
         <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
-        <content type="html"><![CDATA[
+        <content type="html"><![CDATA[<h2>Section 1: The History of C++ Evolution</h2>
+
+<h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
+
+<h2>Section 3: Core Features for Everybody</h2>
+
+<h3>auto(decltype) for Type Declarations</h3>
+
+<h3>Range-Based for Loops</h3>
+
+<h3>“>>” as Nested Template Closer</h3>
+
+<h3>nullptr</h3>
+
+<h3>Enhanced enums: Strongly-typed enums</h3>
+
+<h3>Uniform initialization syntax</h3>
+
+<h3>Initializer lists</h3>
+
+<h3>Lambda Expressions</h3>
+
+<h3>Template Aliases</h3>
+
+<h3>Smart Pointers (shared_ptr, weak_ptr, unique_ptr)</h3>
+
+<h3>Generalized Functors(std::function and std::bind)</h3>
+
+<h3>Unicode characters and strings</h3>
+
+<h3>Raw string literals</h3>
+
+<h3>Regular Expression</h3>
+
+<h3>Multithreading Support</h3>
 ]]></content>
     </entry>
     
