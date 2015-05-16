@@ -132,46 +132,83 @@
 
 <p>下面是一个最简单的使用 std::thread 类的例子</p>
 
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt; </span><span class="c1">// std::cout</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;   </span><span class="c1">// std::thread</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">thread_task</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;hello thread&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">thread_task</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-#include &lt;iostream&gt; // std::cout
-#include &lt;thread&gt;   // std::thread
-
-void thread_task() {
-    std::cout &lt;&lt; "hello thread" &lt;&lt; std::endl;
-}
-
-int main(int argc, const char *argv[])
-{
-    std::thread t(thread_task);
-    t.join();
-
-    return EXIT_SUCCESS;
-}
-</code></pre>
 
 <p>Makefile 如下：</p>
 
-<pre><code>all:Thread
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='makefile'><span class='line'><span class="nf">all</span><span class="o">:</span><span class="n">Thread</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">CC</span><span class="o">=</span>g++
+</span><span class='line'><span class="nv">CPPFLAGS</span><span class="o">=</span>-Wall -std<span class="o">=</span>c++11 -ggdb
+</span><span class='line'><span class="nv">LDFLAGS</span><span class="o">=</span>-pthread
+</span><span class='line'>
+</span><span class='line'><span class="nf">Thread</span><span class="o">:</span><span class="n">Thread</span>.<span class="n">o</span>
+</span><span class='line'>    <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> -o <span class="nv">$@</span> <span class="nv">$^</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">Thread.o</span><span class="o">:</span><span class="n">Thread</span>.<span class="n">cc</span>
+</span><span class='line'>    <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> -o <span class="nv">$@</span> -c <span class="nv">$^</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nf">.PHONY</span><span class="o">:</span>
+</span><span class='line'>    clean
+</span><span class='line'>
+</span><span class='line'><span class="nf">clean</span><span class="o">:</span>
+</span><span class='line'>    rm Thread.o Thread
+</span></code></pre></td></tr></table></div></figure>
 
-CC=g++
-CPPFLAGS=-Wall -std=c++11 -ggdb
-LDFLAGS=-pthread
-
-Thread:Thread.o
-    $(CC) $(LDFLAGS) -o $@ $^
-
-Thread.o:Thread.cc
-    $(CC) $(CPPFLAGS) -o $@ -c $^
-
-
-.PHONY:
-    clean
-
-clean:
-    rm Thread.o Thread
-</code></pre>
 
 <p>注意在 Linux GCC4.6 环境下，编译时需要加 -pthread，否则执行时会出现：</p>
 
