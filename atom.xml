@@ -4,7 +4,7 @@
     <title><![CDATA[Now X Blog]]></title>
     <link href="http://forhappy.github.io/atom.xml" rel="self"/>
     <link href="http://forhappy.github.io/"/>
-    <updated>2015-05-16T21:37:55+08:00</updated>
+    <updated>2015-05-16T21:59:10+08:00</updated>
     <id>http://forhappy.github.io/</id>
     <author>
         <name><![CDATA[forhappy]]></name>
@@ -12,5 +12,14 @@
     </author>
     <generator uri="http://octopress.org/">Octopress</generator>
 
+    
+    <entry>
+        <title type="html"><![CDATA[C++11 Tech Salon Session 1: C++11 Main Language Features]]></title>
+        <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/"/>
+        <updated>2015-05-16T21:58:43+08:00</updated>
+        <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
+        <content type="html"><![CDATA[
+]]></content>
+    </entry>
     
 </feed>
