@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://nowx.org/sitemap.xml
+Sitemap: http://forhappy.github.io/sitemap.xml
