@@ -1,0 +1,300 @@
+<!doctype html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+    
+      
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>C++11 Concurrency Introduction - Now X Blog</title>
+        <meta name="author" content="forhappy">
+        
+        <meta name="description" content="C++11 Concurrency Introduction May 16th, 2015 引言 C++11 是 2011 年 9 月 1 号发布的。C++11 在 C++03 的基础上做了大量的改进，引入了很多新的特性，比如 Lambda 表达式，右值引用，统一的列表初始化方式，正则表达式等等 &hellip;">
+        
+        <meta name="viewport" content="width=device-width">
+        <link rel="canonical" href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction">
+
+        <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+
+        
+        <link href="/favicon.png" rel="icon">
+        <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet">
+        <link href="/atom.xml" rel="alternate" title="Now X Blog" type="application/atom+xml">
+    </head>
+
+
+    <body >
+
+        <header id="header">
+    <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-4">
+        <a href="/" class="site-title">Now X Blog</a>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-8">
+        <nav>
+    <input type="checkbox" id="toggle">
+    <label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu"></label>
+    <ul class="menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about/">About</a></li>
+</ul>
+
+</nav>
+
+    </div>
+</div>
+
+</header>
+
+
+        <div id="main-content">
+
+            <!--[if lte IE 9]>
+<div class="row upgrade-row">
+    <div class="col-lg-12">
+        <div class="upgrade">
+            <i class="upgrade__icon fa fa-warning"></i>
+            <h1 class="upgrade__title h6">Ohnoes!</h1>
+            <p class="upgrade__text">
+                Unfortunately, certain parts of this site may not display correctly in your version of Internet Explorer!<br>
+                If possible, you should consider <a href="http://browsehappy.com/">upgrading your browser</a>.
+            </p>
+        </div>
+    </div>
+</div>
+<!-- <![endif]-->
+
+
+            
+
+            <div class="row top-xs center-sm center-md center-lg site-wrapper">
+                
+                <div class="col-xs-12 col-sm-10 col-md-8 col-lg-8">
+                
+                    <article class="article article--single">
+    <header class="article__header">
+    
+        <h1 class="article__title">C++11 Concurrency Introduction</h1>
+    
+
+    
+        <div class="article__meta clearfix">
+            
+
+
+
+
+
+
+    <time class="article__date pull-left" datetime="2015-05-16T22:35:38+08:00" pubdate><i class="fa fa-calendar"></i> May 16th, 2015</time>
+
+
+
+
+            
+
+
+            
+        </div>
+    
+</header>
+
+
+
+
+    <h1>引言</h1>
+
+<p>C++11 是 2011 年 9 月 1 号发布的。C++11 在 C++03 的基础上做了大量的改进，引入了很多新的特性，比如 Lambda 表达式，右值引用，统一的列表初始化方式，正则表达式等等。当然，其中最令人激动的特性是新标准引入了原子操作类和线程支持库。C++ 一直在语言层面缺少对多线程的支持，因此 C++11 新标准基本上弥补了这一缺陷。可以毫不夸张地说，C++11 相当于一门新的编程语言。</p>
+
+<p>相信 Linux 程序员都用过 Pthread, 但有了 C++11 的 std::thread 以后，你可以在语言层面编写多线程程序了，直接的好处就是多线程程序的可移植性得到了很大的提高，所以作为一名 C++ 程序员，熟悉 C++11 的多线程编程方式还是很有益处的。</p>
+
+<p>如果你对 C++11 不太熟悉，建议先看看维基百科上关于 C++11 新特性的介绍，中文C++11介绍，英文C++11介绍 ，另外C++之父 Bjarne Stroustrup 的关于 C++11 的 FAQ 也是必看的，我也收集了一些关于C++11的资料，供大家查阅，详见本章的 <a href="https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/web-resources.md">资料汇</a></p>
+
+<h1>与 C++11 多线程相关的头文件</h1>
+
+<p>C++11 新标准中引入了五个头文件来支持多线程编程，它们分别是 <code>&lt;atomic&gt;, &lt;thread&gt;, &lt;mutex&gt;, &lt;condition_variable&gt;</code> 和 <code>&lt;future&gt;</code>。</p>
+
+<ul>
+<li><p><code>&lt;atomic&gt;</code>：该头文主要声明了两个类, <code>std::atomic</code> 和 <code>std::atomic_flag</code>，另外还声明了一套 C 风格的原子类型和与 C 兼容的原子操作的函数。</p></li>
+<li><p><code>&lt;thread&gt;</code>：该头文件主要声明了 <code>std::thread</code> 类，另外 <code>std::this_thread</code> 命名空间也在该头文件中。</p></li>
+<li><p><code>&lt;mutex&gt;</code>：该头文件主要声明了与互斥量(Mutex)相关的类，包括 <code>std::mutex_*</code> 一系列类，<code>std::lock_guard</code>, <code>std::unique_lock</code>, 以及其他的类型和函数。</p></li>
+<li><p><code>&lt;condition_variable&gt;</code>：该头文件主要声明了与条件变量相关的类，包括 <code>std::condition_variable</code> 和 <code>std::condition_variable_any</code>。</p></li>
+<li><p><code>&lt;future&gt;</code>：该头文件主要声明了 <code>std::promise</code>, <code>std::package_task</code> 两个 Provider 类，以及 <code>std::future</code> 和 <code>std::shared_future</code> 两个 Future 类，另外还有一些与之相关的类型和函数，<code>std::async()</code> 函数就声明在此头文件中。</p></li>
+</ul>
+
+
+<h1><code>std::thread</code> &ldquo;Hello world&rdquo;</h1>
+
+<p>下面是一个最简单的使用 std::thread 类的例子</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#include &lt;iostream&gt; // std::cout
+#include &lt;thread&gt;   // std::thread
+
+void thread_task() {
+    std::cout &lt;&lt; "hello thread" &lt;&lt; std::endl;
+}
+
+int main(int argc, const char *argv[])
+{
+    std::thread t(thread_task);
+    t.join();
+
+    return EXIT_SUCCESS;
+}
+</code></pre>
+
+<p>Makefile 如下：</p>
+
+<pre><code>all:Thread
+
+CC=g++
+CPPFLAGS=-Wall -std=c++11 -ggdb
+LDFLAGS=-pthread
+
+Thread:Thread.o
+    $(CC) $(LDFLAGS) -o $@ $^
+
+Thread.o:Thread.cc
+    $(CC) $(CPPFLAGS) -o $@ -c $^
+
+
+.PHONY:
+    clean
+
+clean:
+    rm Thread.o Thread
+</code></pre>
+
+<p>注意在 Linux GCC4.6 环境下，编译时需要加 -pthread，否则执行时会出现：</p>
+
+<pre><code>$ ./Thread
+terminate called after throwing an instance of 'std::system_error'
+  what():  Operation not permitted
+Aborted (core dumped)
+</code></pre>
+
+<p>原因是 GCC 默认没有加载 pthread 库，据说在后续的版本中可以不用在编译时添加 -pthread 选项。
+如果 -std=c++11 不被支持，请尝试使用 -std=c++0x 代替并确保GCC已经升级。
+更多的有关 C++11 Concurrency 的介绍将在后续的一系列博客中写出，希望自己勤快一点吧 ;-)</p>
+
+
+
+</article>
+
+
+
+                </div>
+
+                
+                <aside class="sidebar col-xs-12 col-md-4 col-lg-4">
+                    <div class="row">
+
+    
+
+    
+<section class="social col-xs-12 col-sm-6 col-md-12">
+    <h1>
+        Follow me!
+    </h1>
+    <ul class="unstyled">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </ul>
+</section>
+
+
+
+    <section id="recent-posts" class="col-xs-12 col-sm-6 col-md-12">
+    <h1>Recent Posts</h1>
+    <ul class="divided">
+        
+        <li class="post">
+            <a href="/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/">C++11 Concurrency Introduction</a>
+        </li>
+        
+        <li class="post">
+            <a href="/blog/2015/05/16/what-is-concurrency/">What Is Concurrency?</a>
+        </li>
+        
+        <li class="post">
+            <a href="/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/">C++11 Tech Salon Session 1: C++11 Main Language Features</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+
+
+
+
+</div>
+
+                </aside>
+                
+            </div>
+        </div>
+
+        
+
+    
+    
+
+
+
+
+<footer class="footer">
+    <div class="row middle-xs">
+        
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="footer__copyright">
+    All content copyright forhappy.
+</p>
+
+        </div>
+        
+        
+    </div>
+</footer>
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script defer src="/javascripts/octopress.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+
+</html>

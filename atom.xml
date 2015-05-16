@@ -4,7 +4,7 @@
     <title><![CDATA[Now X Blog]]></title>
     <link href="http://forhappy.github.io/atom.xml" rel="self"/>
     <link href="http://forhappy.github.io/"/>
-    <updated>2015-05-16T22:33:08+08:00</updated>
+    <updated>2015-05-16T22:36:19+08:00</updated>
     <id>http://forhappy.github.io/</id>
     <author>
         <name><![CDATA[forhappy]]></name>
@@ -12,6 +12,91 @@
     </author>
     <generator uri="http://octopress.org/">Octopress</generator>
 
+    
+    <entry>
+        <title type="html"><![CDATA[C++11 Concurrency Introduction]]></title>
+        <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/"/>
+        <updated>2015-05-16T22:35:38+08:00</updated>
+        <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction</id>
+        <content type="html"><![CDATA[<h1>引言</h1>
+
+<p>C++11 是 2011 年 9 月 1 号发布的。C++11 在 C++03 的基础上做了大量的改进，引入了很多新的特性，比如 Lambda 表达式，右值引用，统一的列表初始化方式，正则表达式等等。当然，其中最令人激动的特性是新标准引入了原子操作类和线程支持库。C++ 一直在语言层面缺少对多线程的支持，因此 C++11 新标准基本上弥补了这一缺陷。可以毫不夸张地说，C++11 相当于一门新的编程语言。</p>
+
+<p>相信 Linux 程序员都用过 Pthread, 但有了 C++11 的 std::thread 以后，你可以在语言层面编写多线程程序了，直接的好处就是多线程程序的可移植性得到了很大的提高，所以作为一名 C++ 程序员，熟悉 C++11 的多线程编程方式还是很有益处的。</p>
+
+<p>如果你对 C++11 不太熟悉，建议先看看维基百科上关于 C++11 新特性的介绍，中文C++11介绍，英文C++11介绍 ，另外C++之父 Bjarne Stroustrup 的关于 C++11 的 FAQ 也是必看的，我也收集了一些关于C++11的资料，供大家查阅，详见本章的 <a href="https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/web-resources.md">资料汇</a></p>
+
+<h1>与 C++11 多线程相关的头文件</h1>
+
+<p>C++11 新标准中引入了五个头文件来支持多线程编程，它们分别是 <code>&lt;atomic&gt;, &lt;thread&gt;, &lt;mutex&gt;, &lt;condition_variable&gt;</code> 和 <code>&lt;future&gt;</code>。</p>
+
+<ul>
+<li><p><code>&lt;atomic&gt;</code>：该头文主要声明了两个类, <code>std::atomic</code> 和 <code>std::atomic_flag</code>，另外还声明了一套 C 风格的原子类型和与 C 兼容的原子操作的函数。</p></li>
+<li><p><code>&lt;thread&gt;</code>：该头文件主要声明了 <code>std::thread</code> 类，另外 <code>std::this_thread</code> 命名空间也在该头文件中。</p></li>
+<li><p><code>&lt;mutex&gt;</code>：该头文件主要声明了与互斥量(Mutex)相关的类，包括 <code>std::mutex_*</code> 一系列类，<code>std::lock_guard</code>, <code>std::unique_lock</code>, 以及其他的类型和函数。</p></li>
+<li><p><code>&lt;condition_variable&gt;</code>：该头文件主要声明了与条件变量相关的类，包括 <code>std::condition_variable</code> 和 <code>std::condition_variable_any</code>。</p></li>
+<li><p><code>&lt;future&gt;</code>：该头文件主要声明了 <code>std::promise</code>, <code>std::package_task</code> 两个 Provider 类，以及 <code>std::future</code> 和 <code>std::shared_future</code> 两个 Future 类，另外还有一些与之相关的类型和函数，<code>std::async()</code> 函数就声明在此头文件中。</p></li>
+</ul>
+
+
+<h1><code>std::thread</code> &ldquo;Hello world&rdquo;</h1>
+
+<p>下面是一个最简单的使用 std::thread 类的例子</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#include &lt;iostream&gt; // std::cout
+#include &lt;thread&gt;   // std::thread
+
+void thread_task() {
+    std::cout &lt;&lt; "hello thread" &lt;&lt; std::endl;
+}
+
+int main(int argc, const char *argv[])
+{
+    std::thread t(thread_task);
+    t.join();
+
+    return EXIT_SUCCESS;
+}
+</code></pre>
+
+<p>Makefile 如下：</p>
+
+<pre><code>all:Thread
+
+CC=g++
+CPPFLAGS=-Wall -std=c++11 -ggdb
+LDFLAGS=-pthread
+
+Thread:Thread.o
+    $(CC) $(LDFLAGS) -o $@ $^
+
+Thread.o:Thread.cc
+    $(CC) $(CPPFLAGS) -o $@ -c $^
+
+
+.PHONY:
+    clean
+
+clean:
+    rm Thread.o Thread
+</code></pre>
+
+<p>注意在 Linux GCC4.6 环境下，编译时需要加 -pthread，否则执行时会出现：</p>
+
+<pre><code>$ ./Thread
+terminate called after throwing an instance of 'std::system_error'
+  what():  Operation not permitted
+Aborted (core dumped)
+</code></pre>
+
+<p>原因是 GCC 默认没有加载 pthread 库，据说在后续的版本中可以不用在编译时添加 -pthread 选项。
+如果 -std=c++11 不被支持，请尝试使用 -std=c++0x 代替并确保GCC已经升级。
+更多的有关 C++11 Concurrency 的介绍将在后续的一系列博客中写出，希望自己勤快一点吧 ;-)</p>
+]]></content>
+    </entry>
     
     <entry>
         <title type="html"><![CDATA[What Is Concurrency?]]></title>
