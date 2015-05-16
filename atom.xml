@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+    <title><![CDATA[Now X Blog]]></title>
+    <link href="http://nowx.org/atom.xml" rel="self"/>
+    <link href="http://nowx.org/"/>
+    <updated>2015-05-15T17:13:36+08:00</updated>
+    <id>http://nowx.org/</id>
+    <author>
+        <name><![CDATA[forhappy]]></name>
+        
+    </author>
+    <generator uri="http://octopress.org/">Octopress</generator>
+
+    
+</feed>
