@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-    <title><![CDATA[Now X Blog]]></title>
-    <link href="http://forhappy.github.io/atom.xml" rel="self"/>
-    <link href="http://forhappy.github.io/"/>
-    <updated>2015-05-16T22:51:31+08:00</updated>
-    <id>http://forhappy.github.io/</id>
-    <author>
-        <name><![CDATA[forhappy]]></name>
-        
-    </author>
-    <generator uri="http://octopress.org/">Octopress</generator>
-
+  <title><![CDATA[Now X Blog]]></title>
+  <link href="http://forhappy.github.io/atom.xml" rel="self"/>
+  <link href="http://forhappy.github.io/"/>
+  <updated>2015-05-17T11:06:26+08:00</updated>
+  <id>http://forhappy.github.io/</id>
+  <author>
+    <name><![CDATA[forhappy]]></name>
     
-    <entry>
-        <title type="html"><![CDATA[Introduction to C++11 Thread]]></title>
-        <link href="http://forhappy.github.io/blog/2015/05/16/introduction-to-c-plus-plus-11-thread/"/>
-        <updated>2015-05-16T22:47:30+08:00</updated>
-        <id>http://forhappy.github.io/blog/2015/05/16/introduction-to-c-plus-plus-11-thread</id>
-        <content type="html"><![CDATA[<p>本节将详细介绍 <code>std::thread</code> 的用法。</p>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Introduction to C++11 Thread]]></title>
+    <link href="http://forhappy.github.io/blog/2015/05/16/introduction-to-c-plus-plus-11-thread/"/>
+    <updated>2015-05-16T22:47:30+08:00</updated>
+    <id>http://forhappy.github.io/blog/2015/05/16/introduction-to-c-plus-plus-11-thread</id>
+    <content type="html"><![CDATA[<p>本节将详细介绍 <code>std::thread</code> 的用法。</p>
 
 <p><code>std::thread</code> 在 <code>&lt;thread&gt;</code> 头文件中声明，因此使用 <code>std::thread</code> 需包含 <code>&lt;thread&gt;</code> 头文件。</p>
 
@@ -902,20 +902,23 @@ Thread 1 is executing at priority 20
 Waited 2000 ms
 </code></pre>
 ]]></content>
-    </entry>
-    
-    <entry>
-        <title type="html"><![CDATA[C++11 Concurrency Introduction]]></title>
-        <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/"/>
-        <updated>2015-05-16T22:35:38+08:00</updated>
-        <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction</id>
-        <content type="html"><![CDATA[<h1>引言</h1>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++11 Concurrency Introduction]]></title>
+    <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/"/>
+    <updated>2015-05-16T22:35:38+08:00</updated>
+    <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-concurrency-introduction</id>
+    <content type="html"><![CDATA[<h1>引言</h1>
 
 <p>C++11 是 2011 年 9 月 1 号发布的。C++11 在 C++03 的基础上做了大量的改进，引入了很多新的特性，比如 Lambda 表达式，右值引用，统一的列表初始化方式，正则表达式等等。当然，其中最令人激动的特性是新标准引入了原子操作类和线程支持库。C++ 一直在语言层面缺少对多线程的支持，因此 C++11 新标准基本上弥补了这一缺陷。可以毫不夸张地说，C++11 相当于一门新的编程语言。</p>
 
 <p>相信 Linux 程序员都用过 Pthread, 但有了 C++11 的 std::thread 以后，你可以在语言层面编写多线程程序了，直接的好处就是多线程程序的可移植性得到了很大的提高，所以作为一名 C++ 程序员，熟悉 C++11 的多线程编程方式还是很有益处的。</p>
 
 <p>如果你对 C++11 不太熟悉，建议先看看维基百科上关于 C++11 新特性的介绍，中文C++11介绍，英文C++11介绍 ，另外C++之父 Bjarne Stroustrup 的关于 C++11 的 FAQ 也是必看的，我也收集了一些关于C++11的资料，供大家查阅，详见本章的 <a href="https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/web-resources.md">资料汇</a></p>
+
+<!-- more -->
+
 
 <h1>与 C++11 多线程相关的头文件</h1>
 
@@ -1024,14 +1027,14 @@ Aborted (core dumped)
 如果 -std=c++11 不被支持，请尝试使用 -std=c++0x 代替并确保GCC已经升级。
 更多的有关 C++11 Concurrency 的介绍将在后续的一系列博客中写出，希望自己勤快一点吧 ;-)</p>
 ]]></content>
-    </entry>
-    
-    <entry>
-        <title type="html"><![CDATA[What Is Concurrency?]]></title>
-        <link href="http://forhappy.github.io/blog/2015/05/16/what-is-concurrency/"/>
-        <updated>2015-05-16T22:32:12+08:00</updated>
-        <id>http://forhappy.github.io/blog/2015/05/16/what-is-concurrency</id>
-        <content type="html"><![CDATA[<h2>1.1 什么是并发</h2>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[What Is Concurrency?]]></title>
+    <link href="http://forhappy.github.io/blog/2015/05/16/what-is-concurrency/"/>
+    <updated>2015-05-16T22:32:12+08:00</updated>
+    <id>http://forhappy.github.io/blog/2015/05/16/what-is-concurrency</id>
+    <content type="html"><![CDATA[<h2>1.1 什么是并发</h2>
 
 <p>并发(Concurrency)在我们的现实世界中随处可见，以至于我们常常忽略了它的存在，比方说你在工作（假设你是一名程序员，你的工作就是编程）的时候也可以听听自己喜欢的音乐，并且你的耳朵并不会因为手头的工作而忽略了声音的存在（当然，除非你自己有意的去忽略它，但你还是能够听得见声音，只是你的大脑可能不会去感受音乐的节奏），此时你的大脑既要控制你的双手敲击键盘，也要控制你的耳朵去感受音乐。因此，在一定程度上，你的大脑就在并发地处理不同的事情，并且每个时刻都可能会侧重处理某件事情，比如某个时刻音乐达到高潮并且是你喜欢的旋律，你可能会放慢或者停止手边的工作，但在另外一个时刻你正在编写关键代码，需要全神贯注来避免 Bug 的出现，你可能会把声音调小一点或者干脆摘掉耳机。所以，我们的大脑就在并发地指导我们完成各种任务，或者换一种说法，我们需要处理的任务并发地征用我们的大脑，大脑就相当于计算机的 CPU，而待处理的任务就相当于计算机程序（更确切地说应该是进程或线程等执行实体）。</p>
 
@@ -1111,14 +1114,14 @@ Aborted (core dumped)
 
 <p>本文主要讲了什么是并发以及并发和并行的联系和区别。总得来说，Joe Armstrong 的观点通俗易懂，Rob Pike 有关并发和并行的的观点也很有意思。而关于并发和并行具体的差异，本文最后介绍了一种教科书式的解释。读者可以根据自己的理解来选择认同上述某一种或几种观点。</p>
 ]]></content>
-    </entry>
-    
-    <entry>
-        <title type="html"><![CDATA[C++11 Tech Salon Session 1: C++11 Main Language Features]]></title>
-        <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/"/>
-        <updated>2015-05-16T21:58:43+08:00</updated>
-        <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
-        <content type="html"><![CDATA[<h2>Section 1: The History of C++ Evolution</h2>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++11 Tech Salon Session 1: C++11 Main Language Features]]></title>
+    <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/"/>
+    <updated>2015-05-16T21:58:43+08:00</updated>
+    <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
+    <content type="html"><![CDATA[<h2>Section 1: The History of C++ Evolution</h2>
 
 <h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
 
@@ -1154,6 +1157,6 @@ Aborted (core dumped)
 
 <h3>Multithreading Support</h3>
 ]]></content>
-    </entry>
-    
+  </entry>
+  
 </feed>

@@ -1,187 +1,1239 @@
-<!doctype html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-    <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
-    
-      
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Welcome to forhappy's Programming Loft - Now X Blog</title>
-        <meta name="author" content="forhappy">
-        
-        <meta name="description" content=" Attitude Knowledge Passion ">
-        
-        <meta name="viewport" content="width=device-width">
-        <link rel="canonical" href="http://forhappy.github.io">
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Now X Blog</title>
+  <meta name="author" content="forhappy">
 
-        <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
-        <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+  
+  <meta name="description" content="本节将详细介绍 std::thread 的用法。 std::thread 在 &lt;thread&gt; 头文件中声明，因此使用 std::thread 需包含 &lt;thread&gt; 头文件。 &lt;thread&gt; 头文件摘要 &lt;thread&gt; 头文件声明了 std &hellip;">
+  
 
-        
-        <link href="/favicon.png" rel="icon">
-        <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet">
-        <link href="/atom.xml" rel="alternate" title="Now X Blog" type="application/atom+xml">
-    </head>
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  
+  <link rel="canonical" href="http://forhappy.github.io/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Now X Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-    <body >
+  
 
-        <header id="header">
-    <div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-4">
-        <a href="/" class="site-title">Now X Blog</a>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-8">
-        <nav>
-    <input type="checkbox" id="toggle">
-    <label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu"></label>
-    <ul class="menu">
-    <li><a href="/">Home</a></li>
-    <li><a href="/blog/">Blog</a></li>
-    <li><a href="/about/">About</a></li>
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Now X Blog</a></h1>
+  
+    <h2>Thinking In Action.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="forhappy.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
 </ul>
 
 </nav>
-
-    </div>
-</div>
-
-</header>
-
-
-        <div id="main-content">
-
-            <!--[if lte IE 9]>
-<div class="row upgrade-row">
-    <div class="col-lg-12">
-        <div class="upgrade">
-            <i class="upgrade__icon fa fa-warning"></i>
-            <h1 class="upgrade__title h6">Ohnoes!</h1>
-            <p class="upgrade__text">
-                Unfortunately, certain parts of this site may not display correctly in your version of Internet Explorer!<br>
-                If possible, you should consider <a href="http://browsehappy.com/">upgrading your browser</a>.
-            </p>
-        </div>
-    </div>
-</div>
-<!-- <![endif]-->
-
-
-            
-                <div class="hero" style="background-image: url('/images/hero_background.jpg');">
-    <div class="row middle-xs center-xs start-sm">
-        <div class="col-xs-12 col-sm-4">
-            <img class="hero__gravatar" src="/images/gravatar.jpg" width="250" height="250" alt="forhappy's Picture">
-        </div>
-        <div class="col-xs-12 col-sm-8">
-            <h1 class="hero__title">
-    forhappy
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
     
-        <small class="hero__subtitle">Thinking In Action.</small>
+      <h1 class="entry-title"><a href="/blog/2015/05/16/introduction-to-c-plus-plus-11-thread/">Introduction to C++11 Thread</a></h1>
     
-</h1>
-<hr class="hero__divider">
-<p class="hero__text lead">
-    Welcome to my programming loft! I'm an ads software engineer at freewheel.tv, a Comcast company. FreeWheel helps the largest players in the US television industry generate revenue from their ad-supported content through a robust technology platform for ad management and monetization, a private marketplace for premium television inventory, and advisory services.
-</p>
-
-        </div>
-    </div>
-
-    <div class="hero__credit">
-        <p>
-            Cliffs of Moher, by <a href="http://www.flickr.com/photos/alfarese/2780612581/" target="_blank">Alessandro Farese</a> <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en" target="_blank" class="hero__licence"><small>(by-nc-nd)</small></a>
-        </p>
-    </div>
-</div>
-
-            
-
-            <div class="row top-xs center-sm center-md center-lg site-wrapper">
-                
-                <div class="col-xs-12">
-                
-                    <article class="page">
-
     
-
-    <div class="row top-xs">
-    <div class="col-xs-12 col-lg-4">
-        <div class="row usp">
-            <div class="col-xs-12 col-sm-4 col-lg-12">
-                <span class="usp__icon"><i class="fa fa-paint-brush"></i></span>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-lg-12"><h2 class="usp__title">Attitude</h2>
-<hr class="usp__divider">
-<p class="usp__text">
-</p>
-</div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-lg-4">
-        <div class="row usp">
-            <div class="col-xs-12 col-sm-4 col-lg-12">
-                <span class="usp__icon"><i class="fa fa-laptop"></i></span>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-lg-12"><h2 class="usp__title">Knowledge</h2>
-<hr class="usp__divider">
-<p class="usp__text">
-</p>
-</div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-lg-4">
-        <div class="row usp">
-            <div class="col-xs-12 col-sm-4 col-lg-12">
-                <span class="usp__icon"><i class="fa fa-coffee"></i></span>
-            </div>
-            <div class="col-xs-12 col-sm-8 col-lg-12"><h2 class="usp__title">Passion</h2>
-<hr class="usp__divider">
-<p class="usp__text">
-</p>
-</div>
-        </div>
-    </div>
-</div>
-
-
-</article>
-
-                </div>
-
-                
-            </div>
-        </div>
-
+      <p class="meta">
         
 
-    
-    
 
 
 
-
-<footer class="footer">
-    <div class="row middle-xs">
+<time class='entry-date' datetime='2015-05-16T22:47:30+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:47 pm</span></time>
         
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p class="footer__copyright">
-    All content copyright forhappy.
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本节将详细介绍 <code>std::thread</code> 的用法。</p>
+
+<p><code>std::thread</code> 在 <code>&lt;thread&gt;</code> 头文件中声明，因此使用 <code>std::thread</code> 需包含 <code>&lt;thread&gt;</code> 头文件。</p>
+
+<h2><code>&lt;thread&gt;</code> 头文件摘要</h2>
+
+<p><code>&lt;thread&gt;</code> 头文件声明了 std::thread 线程类及 <code>std::swap</code> (交换两个线程对象)辅助函数。另外命名空间 <code>std::this_thread</code> 也声明在 <code>&lt;thread&gt;</code> 头文件中。下面是 C++11 标准所定义的 <code>&lt;thread&gt;</code> 头文件摘要：</p>
+
+<blockquote><p>参见 N3242=11-0012 草案第 30.3 节 Threads(p1133)。</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">std</span> <span class="p">{</span>
+</span><span class='line'>    <span class="cp">#define __STDCPP_THREADS__ __cplusplus</span>
+</span><span class='line'>    <span class="n">class</span> <span class="kr">thread</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kr">thread</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">namespace</span> <span class="n">this_thread</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'>        <span class="kt">void</span> <span class="nf">yield</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">Clock</span><span class="p">,</span> <span class="n">class</span> <span class="n">Duration</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="kt">void</span> <span class="n">sleep_until</span><span class="p">(</span><span class="k">const</span> <span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="n">Clock</span><span class="p">,</span> <span class="n">Duration</span><span class="o">&gt;&amp;</span> <span class="n">abs_time</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">Rep</span><span class="p">,</span> <span class="n">class</span> <span class="n">Period</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="kt">void</span> <span class="n">sleep_for</span><span class="p">(</span><span class="k">const</span> <span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="n">Rep</span><span class="p">,</span> <span class="n">Period</span><span class="o">&gt;&amp;</span> <span class="n">rel_time</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>&lt;thread&gt;</code> 头文件主要声明了 <code>std::thread</code> 类，另外在 <code>std::this_thread</code> 命名空间中声明了 <code>get_id</code>，<code>yield</code>，<code>sleep_until</code> 以及 <code>sleep_for</code> 等辅助函数，本章稍微会详细介绍 <code>std::thread</code> 类及相关函数。</p>
+
+<h3><code>std::thread</code> 类摘要</h3>
+
+<p><code>std::thread</code> 代表了一个线程对象，C++11 标准声明如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">std</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">class</span> <span class="kr">thread</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nl">public</span><span class="p">:</span>
+</span><span class='line'>            <span class="c1">// 类型声明:</span>
+</span><span class='line'>            <span class="n">class</span> <span class="n">id</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">typedef</span> <span class="n">implementation</span><span class="o">-</span><span class="n">defined</span> <span class="n">native_handle_type</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// 构造函数、拷贝构造函数和析构函数声明:</span>
+</span><span class='line'>            <span class="kr">thread</span><span class="p">()</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>            <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">F</span><span class="p">,</span> <span class="n">class</span> <span class="p">...</span><span class="n">Args</span><span class="o">&gt;</span> <span class="n">explicit</span> <span class="kr">thread</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">);</span>
+</span><span class='line'>            <span class="o">~</span><span class="kr">thread</span><span class="p">();</span>
+</span><span class='line'>            <span class="kr">thread</span><span class="p">(</span><span class="k">const</span> <span class="kr">thread</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="n">delete</span><span class="p">;</span>
+</span><span class='line'>            <span class="kr">thread</span><span class="p">(</span><span class="kr">thread</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>            <span class="kr">thread</span><span class="o">&amp;</span> <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="kr">thread</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="n">delete</span><span class="p">;</span>
+</span><span class='line'>            <span class="kr">thread</span><span class="o">&amp;</span> <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="kr">thread</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// 成员函数声明:</span>
+</span><span class='line'>            <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="kr">thread</span><span class="o">&amp;</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>            <span class="kt">bool</span> <span class="n">joinable</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>            <span class="kt">void</span> <span class="nf">join</span><span class="p">();</span>
+</span><span class='line'>            <span class="kt">void</span> <span class="nf">detach</span><span class="p">();</span>
+</span><span class='line'>            <span class="n">id</span> <span class="n">get_id</span><span class="p">()</span> <span class="k">const</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>            <span class="n">native_handle_type</span> <span class="nf">native_handle</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="c1">// 静态成员函数声明:</span>
+</span><span class='line'>            <span class="k">static</span> <span class="kt">unsigned</span> <span class="n">hardware_concurrency</span><span class="p">()</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>std::thread</code> 中主要声明三类函数：(1). 构造函数、拷贝构造函数及析构函数；(2). 成员函数；(3). 静态成员函数。另外， <code>std::thread::id</code> 表示线程 ID，同时 C++11 声明如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">std</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">class</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nl">public</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">id</span><span class="p">()</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">==</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">!=</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">y</span><span class="p">)</span> <span class="n">noexcept</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">template</span><span class="o">&lt;</span><span class="n">class</span> <span class="n">charT</span><span class="p">,</span> <span class="n">class</span> <span class="n">traits</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="n">basic_ostream</span><span class="o">&lt;</span><span class="n">charT</span><span class="p">,</span> <span class="n">traits</span><span class="o">&gt;&amp;</span>
+</span><span class='line'>        <span class="n">operator</span><span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">basic_ostream</span><span class="o">&lt;</span><span class="n">charT</span><span class="p">,</span> <span class="n">traits</span><span class="o">&gt;&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">id</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Hash 支持</span>
+</span><span class='line'>    <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">hash</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">template</span> <span class="o">&lt;&gt;</span> <span class="k">struct</span> <span class="n">hash</span><span class="o">&lt;</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span><span class="o">&gt;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2><code>std::thread</code> 详解</h2>
+
+<h3><code>std::thread</code> 构造和赋值</h3>
+
+<h4><code>std::thread</code> 构造函数</h4>
+
+<table>
+<tbody>
+<tr class="odd"><th>默认构造函数 (1)</th>
+<td>thread() noexcept;</td>
+</tr>
+<tr class="even"><th>初始化构造函数 (2)</th>
+<td>
+template &lt;class Fn, class... Args&gt;<br/>
+explicit thread(Fn&amp;&amp; fn, Args&amp;&amp;... args);
+</td>
+</tr>
+<tr class="odd"><th>拷贝构造函数 [deleted] (3)</th>
+<td>
+thread(const thread&amp;) = delete;
+</td>
+</tr>
+<tr class="even"><th>Move 构造函数 (4)</th>
+<td>
+thread(thread&amp;&amp; x) noexcept;
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<ol>
+<li>默认构造函数(1)，创建一个空的 <code>std::thread</code> 执行对象。</li>
+<li>初始化构造函数(2)，创建一个 <code>std::thread</code> 对象，该 <code>std::thread</code> 对象可被 <code>joinable</code>，新产生的线程会调用 <code>fn</code> 函数，该函数的参数由 <code>args</code> 给出。</li>
+<li>拷贝构造函数(被禁用)(3)，意味着 <code>std::thread</code> 对象不可拷贝构造。</li>
+<li>Move 构造函数(4)，move 构造函数(move 语义是 C++11 新出现的概念，详见附录)，调用成功之后 <code>x</code> 不代表任何 <code>std::thread</code> 执行对象。</li>
+</ol>
+
+
+<blockquote><p>注意：可被 <code>joinable</code> 的 <code>std::thread</code> 对象必须在他们销毁之前被主线程 <code>join</code> 或者将其设置为 <code>detached</code>.</p></blockquote>
+
+<p>std::thread 各种构造函数例子如下（<a href="http://en.cppreference.com/w/cpp/thread/thread/thread">参考</a>）：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;utility&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;functional&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;atomic&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Thread &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; executing</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Thread 2 executing</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="o">++</span><span class="n">n</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">;</span> <span class="c1">// t1 is not a thread</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// pass by value</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t3</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ref</span><span class="p">(</span><span class="n">n</span><span class="p">));</span> <span class="c1">// pass by reference</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t4</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">t3</span><span class="p">));</span> <span class="c1">// t4 is now running f2(). t3 is no longer a thread</span>
+</span><span class='line'>    <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">t4</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Final value of n is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4><code>std::thread</code> 赋值操作</h4>
+
+<table style="width: 475px; height: 87px;">
+<tbody>
+<tr class="odd"><th>Move 赋值操作 (1)</th>
+<td>
+thread&amp; operator=(thread&amp;&amp; rhs) noexcept;
+</td>
+</tr>
+<tr class="even"><th>拷贝赋值操作 [deleted] (2)</th>
+<td>
+thread&amp; operator=(const thread&amp;) = delete;
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<ol>
+<li>Move 赋值操作(1)，如果当前对象不可 <code>joinable</code>，需要传递一个右值引用(<code>rhs</code>)给 <code>move</code> 赋值操作；如果当前对象可被 <code>joinable</code>，则会调用 <code>terminate</code>() 报错。</li>
+<li>拷贝赋值操作(2)，被禁用，因此 <code>std::thread</code> 对象不可拷贝赋值。</li>
+</ol>
+
+
+<p>请看下面的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;stdio.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;    </span><span class="c1">// std::chrono::seconds</span>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;  </span><span class="c1">// std::cout</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;    </span><span class="c1">// std::thread, std::this_thread::sleep_for</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">thread_task</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;hello thread &quot;</span>
+</span><span class='line'>        <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">get_id</span><span class="p">()</span>
+</span><span class='line'>        <span class="o">&lt;&lt;</span> <span class="s">&quot; paused &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; seconds&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">threads</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Spawning 5 threads...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">threads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="p">(</span><span class="n">thread_task</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Done spawning threads! Now wait for them to join</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">t</span><span class="p">:</span> <span class="n">threads</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;All threads joined.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>其他成员函数</h3>
+
+<blockquote><p>本小节例子来自 <a href="http://en.cppreference.com/w/cpp/thread/thread">http://en.cppreference.com </a></p></blockquote>
+
+<ul>
+<li><code>get_id</code>: 获取线程 ID，返回一个类型为 <code>std::thread::id</code> 的对象。请看下面例子：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t1_id</span> <span class="o">=</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t2_id</span> <span class="o">=</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t1&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t2&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>joinable</code>: 检查线程是否可被 join。检查当前的线程对象是否表示了一个活动的执行线程，由默认构造函数创建的线程是不能被 join 的。另外，如果某个线程 已经执行完任务，但是没有被 join 的话，该线程依然会被认为是一个活动的执行线程，因此也是可以被 join 的。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;before starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>join</code>: Join 线程，调用该函数会阻塞当前线程，直到由 <code>*this</code> 所标示的线程执行完毕 join 才返回。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// simulate expensive operation</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// simulate expensive operation</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting first helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting second helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;waiting for helpers to finish...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">helper1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">helper2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>detach</code>: Detach 线程。
+将当前线程对象所代表的执行实例与该线程对象分离，使得线程的执行可以单独进行。一旦线程执行完毕，它所分配的资源将会被释放。</li>
+</ul>
+
+
+<p>调用 detach 函数之后：</p>
+
+<ol>
+<li><code>*this</code> 不再代表任何的线程执行实例。</li>
+<li>joinable() == false</li>
+<li>get_id() == std::thread::id()</li>
+</ol>
+
+
+<p>另外，如果出错或者 <code>joinable() == false</code>，则会抛出 <code>std::system_error</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">independentThread</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">threadCaller</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">independentThread</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">t</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">threadCaller</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>swap</code>: Swap 线程，交换两个线程对象所代表的底层句柄(underlying handles)。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after std::swap(t1, t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">t2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after t1.swap(t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行结果如下：</p>
+
+<pre><code>thread 1 id: 1892
+thread 2 id: 2584
+after std::swap(t1, t2):
+thread 1 id: 2584
+thread 2 id: 1892
+after t1.swap(t2):
+thread 1 id: 1892
+thread 2 id: 2584
+</code></pre>
+
+<ul>
+<li><code>native_handle</code>: 返回 native handle（由于 <code>std::thread</code> 的实现和操作系统相关，因此该函数返回与 <code>std::thread</code> 具体实现相关的线程句柄，例如在符合 Posix 标准的平台下(如 Unix/Linux)是 Pthread 库）。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;cstring&gt;</span>
+</span><span class='line'>    <span class="cp">#include &lt;pthread.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">iomutex</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>       <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
+</span><span class='line'>       <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
+</span><span class='line'>       <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">pthread_self</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
+</span><span class='line'>       <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lk</span><span class="p">(</span><span class="n">iomutex</span><span class="p">);</span>
+</span><span class='line'>       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Thread &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is executing at priority &quot;</span>
+</span><span class='line'>                 <span class="o">&lt;&lt;</span> <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">t2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">pthread_setschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="n">SCHED_FIFO</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Failed to setschedparam: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>执行结果如下：</p>
+
+<pre><code>Thread 2 is executing at priority 0
+Thread 1 is executing at priority 20
+</code></pre>
+
+<ul>
+<li><p><code>hardware_concurrency</code> [static]: 检测硬件并发特性，返回当前平台的线程实现所支持的线程并发数目，但返回值仅仅只作为系统提示(hint)。</p>
+
+<pre><code>  #include &lt;iostream&gt;
+  #include &lt;thread&gt;
+
+  int main() {
+      unsigned int n = std::thread::hardware_concurrency();
+      std::cout &lt;&lt; n &lt;&lt; " concurrent threads are supported.\n";
+  }
+</code></pre></li>
+</ul>
+
+
+<h2><code>std::this_thread</code> 命名空间中相关辅助函数介绍</h2>
+
+<ul>
+<li><p>get_id: 获取线程 ID。</p>
+
+<pre><code>  #include &lt;iostream&gt;
+  #include &lt;thread&gt;
+  #include &lt;chrono&gt;
+  #include &lt;mutex&gt;
+
+  std::mutex g_display_mutex;
+
+  void foo()
+  {
+      std::thread::id this_id = std::this_thread::get_id();
+
+      g_display_mutex.lock();
+      std::cout &lt;&lt; "thread " &lt;&lt; this_id &lt;&lt; " sleeping...\n";
+      g_display_mutex.unlock();
+
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+  }
+
+  int main()
+  {
+      std::thread t1(foo);
+      std::thread t2(foo);
+
+      t1.join();
+      t2.join();
+  }
+</code></pre></li>
+<li><p>yield: 当前线程放弃执行，操作系统调度另一线程继续执行。</p>
+
+<pre><code>  #include &lt;iostream&gt;
+  #include &lt;chrono&gt;
+  #include &lt;thread&gt;
+
+  // "busy sleep" while suggesting that other threads run 
+  // for a small amount of time
+  void little_sleep(std::chrono::microseconds us)
+  {
+      auto start = std::chrono::high_resolution_clock::now();
+      auto end = start + us;
+      do {
+          std::this_thread::yield();
+      } while (std::chrono::high_resolution_clock::now() &lt; end);
+  }
+
+  int main()
+  {
+      auto start = std::chrono::high_resolution_clock::now();
+
+      little_sleep(std::chrono::microseconds(100));
+
+      auto elapsed = std::chrono::high_resolution_clock::now() - start;
+      std::cout &lt;&lt; "waited for "
+                &lt;&lt; std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(elapsed).count()
+                &lt;&lt; " microseconds\n";
+  }
+</code></pre></li>
+<li><p>sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。</p>
+
+<pre><code>  template&lt; class Clock, class Duration &gt;
+  void sleep_until( const std::chrono::time_point&lt;Clock,Duration&gt;&amp; sleep_time );
+</code></pre></li>
+<li><p>sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 <code>sleep_duration</code> 所表示的时间片更长。</p>
+
+<pre><code>  template&lt; class Rep, class Period &gt;
+  void sleep_for( const std::chrono::duration&lt;Rep,Period&gt;&amp; sleep_duration );
+
+  #include &lt;iostream&gt;
+  #include &lt;chrono&gt;
+  #include &lt;thread&gt;
+
+  int main()
+  {
+      std::cout &lt;&lt; "Hello waiter" &lt;&lt; std::endl;
+      std::chrono::milliseconds dura( 2000 );
+      std::this_thread::sleep_for( dura );
+      std::cout &lt;&lt; "Waited 2000 ms\n";
+  }
+</code></pre></li>
+</ul>
+
+
+<p>执行结果如下：</p>
+
+<pre><code>Hello waiter
+Waited 2000 ms
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/">C++11 Concurrency Introduction</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-16T22:35:38+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:35 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>引言</h1>
+
+<p>C++11 是 2011 年 9 月 1 号发布的。C++11 在 C++03 的基础上做了大量的改进，引入了很多新的特性，比如 Lambda 表达式，右值引用，统一的列表初始化方式，正则表达式等等。当然，其中最令人激动的特性是新标准引入了原子操作类和线程支持库。C++ 一直在语言层面缺少对多线程的支持，因此 C++11 新标准基本上弥补了这一缺陷。可以毫不夸张地说，C++11 相当于一门新的编程语言。</p>
+
+<p>相信 Linux 程序员都用过 Pthread, 但有了 C++11 的 std::thread 以后，你可以在语言层面编写多线程程序了，直接的好处就是多线程程序的可移植性得到了很大的提高，所以作为一名 C++ 程序员，熟悉 C++11 的多线程编程方式还是很有益处的。</p>
+
+<p>如果你对 C++11 不太熟悉，建议先看看维基百科上关于 C++11 新特性的介绍，中文C++11介绍，英文C++11介绍 ，另外C++之父 Bjarne Stroustrup 的关于 C++11 的 FAQ 也是必看的，我也收集了一些关于C++11的资料，供大家查阅，详见本章的 <a href="https://github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/blob/master/zh/chapter1-Introduction/web-resources.md">资料汇</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/16/what-is-concurrency/">What Is Concurrency?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-16T22:32:12+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:32 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>1.1 什么是并发</h2>
+
+<p>并发(Concurrency)在我们的现实世界中随处可见，以至于我们常常忽略了它的存在，比方说你在工作（假设你是一名程序员，你的工作就是编程）的时候也可以听听自己喜欢的音乐，并且你的耳朵并不会因为手头的工作而忽略了声音的存在（当然，除非你自己有意的去忽略它，但你还是能够听得见声音，只是你的大脑可能不会去感受音乐的节奏），此时你的大脑既要控制你的双手敲击键盘，也要控制你的耳朵去感受音乐。因此，在一定程度上，你的大脑就在并发地处理不同的事情，并且每个时刻都可能会侧重处理某件事情，比如某个时刻音乐达到高潮并且是你喜欢的旋律，你可能会放慢或者停止手边的工作，但在另外一个时刻你正在编写关键代码，需要全神贯注来避免 Bug 的出现，你可能会把声音调小一点或者干脆摘掉耳机。所以，我们的大脑就在并发地指导我们完成各种任务，或者换一种说法，我们需要处理的任务并发地征用我们的大脑，大脑就相当于计算机的 CPU，而待处理的任务就相当于计算机程序（更确切地说应该是进程或线程等执行实体）。</p>
+
+<p>不过在现实世界中，我们并不会严格定义什么是并发。而在计算机程序世界中，为了编写高性能的代码，我们应该理解什么是并发，并发的基本特性是什么，哪些问题可以使用并发编程来（高效地）解决，哪些情况下又应该尽量避免使用并发编程，我们在使用并发编程时需要注意一些什么问题，本章的将会给大家介绍并发的基本概念，带领大家学习并发编程的基本技巧。</p>
+
+<h2>1.2 并发与并行的联系和区别</h2>
+
+<p>与并发相近的另一个概念是并行(Parallel)。和并发所描述的情况一样，并行也是指两个或多个任务被同时执行。但是严格来讲，并发和并行的概念并是不等同的，两者存在很大的差别。下面我们来看看计算机科学家们是怎么区分并发和并行的。</p>
+
+<h3>1.2.1 Erlang 之父 Joe Armstrong 的观点</h3>
+
+<p>Erlang 是一种通用的并行程序设计语言，在并行、分布式和容错等方面表现优异。下面是 Erlang 官方的介绍:</p>
+
+<blockquote><p>Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Erlang&rsquo;s runtime system has built-in support for concurrency, distribution and fault tolerance.</p></blockquote>
+
+<p>Erlang 的发明者 Joe Armstrong 在他的一篇博文(<a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">原文链接</a>)中提到如何向一个 5 岁的小孩去介绍并发和并行的区别，并给出了下面一幅图（下图是自己重绘的，<a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">原图连接</a>）：</p>
+
+<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/concurrent-vs-parallel.png" alt="并发与并行的区别" /></p>
+
+<p>直观来讲，并发是两个等待队列中的人同时去竞争一台咖啡机（当然，人是有理性懂礼貌的动物（也不排除某些很霸道的人插队的可能），两队列中的排队者也可能约定交替使用咖啡机，也可能是大家同时竞争咖啡机，谁先竞争到咖啡机谁使用，不过后一种的方法可能引发冲突，因为两个队列里面排在队列首位的人可能同时使用咖啡机），每个等待者在使用咖啡机之前不仅需要知道排在他前面那个人是否已经使用完了咖啡机，还需知道另一个队列中排在首位的人是否也正准备使用咖啡机；而并行是每个队列拥有自己的咖啡机，两个队列之间并没有竞争的关系，队列中的某个排队者只需等待队列前面的人使用完咖啡机，然后再轮到自己使用咖啡机。</p>
+
+<p>因此，并发意味着多个执行实体（比方说上面例子中的人）可能需要竞争资源（咖啡机），因此就不可避免带来竞争和同步的问题；而并行则是不同的执行实体拥有各自的资源，相互之间可能互不干扰。</p>
+
+<h3>1.2.2. Go 发明者之一 Rob Pike 的观点</h3>
+
+<p>Go 是一门新兴的编程语言，Go 官方对其介绍如下：</p>
+
+<blockquote><p>The Go programming language is an open source project to make programmers more productive.</p>
+
+<p>Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines.</p></blockquote>
+
+<p>Go 的并行机制使其非常容易编写多核和网络应用。Go 语言的并发模型基于 CSP(Communicating sequential processes, 参见维基百科 <a href="http://en.wikipedia.org/wiki/Communicating_Sequential_Processes">CSP</a>)。Go 提供了 goroutines(并发执行), channels(同步和通信), select(多路并发控制) 等特性来支持并发编程。Go 的发明者之一 Rob Pick 在他的一篇讲稿(<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html">Concurrency is not Parallelism(it&rsquo;s better)</a>)中提到：</p>
+
+<blockquote><p><a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-3">Concurrency</a>: Programming as the composition of independently executing processes.</p>
+
+<p><a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-4">Parallelism</a>: Programming as the simultaneous execution of (possibly related) computations.</p></blockquote>
+
+<p>Rob 认为并发是程序本身的一种特性，程序被分为多个可独立执行的部分，而各个可独立执行的片段通过通信手段进行协调（后文会提到），而并行则是程序的计算过程（不同的计算过程可能相关联）同时执行。</p>
+
+<p>Rob Pike 的观点是： 并发是一次处理(dealing with)很多事情，而并行是一次做(doing)很多事情.(注: 英文词汇的表达也很微妙)<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-5">原文</a>是如下：</p>
+
+<blockquote><p>Concurrency is about dealing with lots of things at once.</p>
+
+<p>Parallelism is about doing lots of things at once.</p></blockquote>
+
+<p>前者是关于程序结构的，而后者是关于程序执行的。Rob 认为：</p>
+
+<blockquote><p>Concurrency provides a way to structure a solution to solve a problem that may (but not necessarily) be parallelizable.</p></blockquote>
+
+<p>即我们可以利用并发的手段去构建一种解决方案来解决那些有可能被并行处理的问题。</p>
+
+<p>作者在本文中还<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-7">提到</a>，设计并发程序时应该将程序分为多个执行片段，使得每个片段可以独立执行。不同执行片段通过通信(Communication )来进行协调。因此 Go 的并发模型基于 CSP: C. A. R. Hoare: Communicating Sequential Processes (CACM 1978)</p>
+
+<p>作者后面还给出了一个例子来阐述他的观点，感兴趣的读者可以继续阅读：(<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html">Concurrency is not Parallelism(it&rsquo;s better)</a>)</p>
+
+<h3>1.2.3 Haskell 语言中的并发与并行</h3>
+
+<p>(本小节暂未完成)</p>
+
+<h3>1.2.4 其他观点</h3>
+
+<p>另外，Intel 中文网站的一篇文章(<a href="http://software.intel.com/zh-cn/blogs/2010/11/30/400006465">原文链接</a>)曾这样写道（可能不是很权威，不过可以大致说明并发与并行的区别），</p>
+
+<p>并发（Concurrence）：指两个或两个以上的事件或活动在同一时间间隔内发生。并发的实质是单个物理 CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发可以对有限物理资源强制行使多用户共享以提高效率，如下图所示：</p>
+
+<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/intel-blog-concurrency.png" alt="并发" /></p>
+
+<p>并行（Parallelism）指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行，如下图所示：</p>
+
+<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/intel-blog-parallel.png" alt="并行" /></p>
+
+<p>因此，该文认为并发与并行的区别是：并发是一个处理器同时处理多个任务，而并行多个处理器或者是多核的处理器同时处理多个不同的任务。前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生。</p>
+
+<p>而两者的联系是：并行的事件或活动一定是并发的，但反之并发的事件或活动未必是并行的。并行性是并发性的特例，而并发性是并行性的扩展（个人不赞同此观点）。</p>
+
+<h3>1.2.5 小节</h3>
+
+<p>本文主要讲了什么是并发以及并发和并行的联系和区别。总得来说，Joe Armstrong 的观点通俗易懂，Rob Pike 有关并发和并行的的观点也很有意思。而关于并发和并行具体的差异，本文最后介绍了一种教科书式的解释。读者可以根据自己的理解来选择认同上述某一种或几种观点。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/">C++11 Tech Salon Session 1: C++11 Main Language Features</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-16T21:58:43+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:58 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Section 1: The History of C++ Evolution</h2>
+
+<h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
+
+<h2>Section 3: Core Features for Everybody</h2>
+
+<h3>auto(decltype) for Type Declarations</h3>
+
+<h3>Range-Based for Loops</h3>
+
+<h3>“>>” as Nested Template Closer</h3>
+
+<h3>nullptr</h3>
+
+<h3>Enhanced enums: Strongly-typed enums</h3>
+
+<h3>Uniform initialization syntax</h3>
+
+<h3>Initializer lists</h3>
+
+<h3>Lambda Expressions</h3>
+
+<h3>Template Aliases</h3>
+
+<h3>Smart Pointers (shared_ptr, weak_ptr, unique_ptr)</h3>
+
+<h3>Generalized Functors(std::function and std::bind)</h3>
+
+<h3>Unicode characters and strings</h3>
+
+<h3>Raw string literals</h3>
+
+<h3>Regular Expression</h3>
+
+<h3>Multithreading Support</h3>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/16/introduction-to-c-plus-plus-11-thread/">Introduction to C++11 Thread</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/16/c-plus-plus-11-concurrency-introduction/">C++11 Concurrency Introduction</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/16/what-is-concurrency/">What Is Concurrency?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/">C++11 Tech Salon Session 1: C++11 Main Language Features</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - forhappy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-        </div>
-        
-        
-    </div>
 </footer>
-
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
-<script defer src="/javascripts/octopress.js"></script>
+  
 
 
 
@@ -189,7 +1241,19 @@
 
 
 
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
-    </body>
 
+
+
+
+</body>
 </html>
