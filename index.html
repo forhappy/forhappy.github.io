@@ -169,81 +169,12 @@
 
 <p>不过在现实世界中，我们并不会严格定义什么是并发。而在计算机程序世界中，为了编写高性能的代码，我们应该理解什么是并发，并发的基本特性是什么，哪些问题可以使用并发编程来（高效地）解决，哪些情况下又应该尽量避免使用并发编程，我们在使用并发编程时需要注意一些什么问题，本章的将会给大家介绍并发的基本概念，带领大家学习并发编程的基本技巧。</p>
 
-<h2>1.2 并发与并行的联系和区别</h2>
-
-<p>与并发相近的另一个概念是并行(Parallel)。和并发所描述的情况一样，并行也是指两个或多个任务被同时执行。但是严格来讲，并发和并行的概念并是不等同的，两者存在很大的差别。下面我们来看看计算机科学家们是怎么区分并发和并行的。</p>
-
-<h3>1.2.1 Erlang 之父 Joe Armstrong 的观点</h3>
-
-<p>Erlang 是一种通用的并行程序设计语言，在并行、分布式和容错等方面表现优异。下面是 Erlang 官方的介绍:</p>
-
-<blockquote><p>Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability. Erlang&rsquo;s runtime system has built-in support for concurrency, distribution and fault tolerance.</p></blockquote>
-
-<p>Erlang 的发明者 Joe Armstrong 在他的一篇博文(<a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">原文链接</a>)中提到如何向一个 5 岁的小孩去介绍并发和并行的区别，并给出了下面一幅图（下图是自己重绘的，<a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">原图连接</a>）：</p>
-
-<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/concurrent-vs-parallel.png" alt="并发与并行的区别" /></p>
-
-<p>直观来讲，并发是两个等待队列中的人同时去竞争一台咖啡机（当然，人是有理性懂礼貌的动物（也不排除某些很霸道的人插队的可能），两队列中的排队者也可能约定交替使用咖啡机，也可能是大家同时竞争咖啡机，谁先竞争到咖啡机谁使用，不过后一种的方法可能引发冲突，因为两个队列里面排在队列首位的人可能同时使用咖啡机），每个等待者在使用咖啡机之前不仅需要知道排在他前面那个人是否已经使用完了咖啡机，还需知道另一个队列中排在首位的人是否也正准备使用咖啡机；而并行是每个队列拥有自己的咖啡机，两个队列之间并没有竞争的关系，队列中的某个排队者只需等待队列前面的人使用完咖啡机，然后再轮到自己使用咖啡机。</p>
-
-<p>因此，并发意味着多个执行实体（比方说上面例子中的人）可能需要竞争资源（咖啡机），因此就不可避免带来竞争和同步的问题；而并行则是不同的执行实体拥有各自的资源，相互之间可能互不干扰。</p>
-
-<h3>1.2.2. Go 发明者之一 Rob Pike 的观点</h3>
-
-<p>Go 是一门新兴的编程语言，Go 官方对其介绍如下：</p>
-
-<blockquote><p>The Go programming language is an open source project to make programmers more productive.</p>
-
-<p>Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines.</p></blockquote>
-
-<p>Go 的并行机制使其非常容易编写多核和网络应用。Go 语言的并发模型基于 CSP(Communicating sequential processes, 参见维基百科 <a href="http://en.wikipedia.org/wiki/Communicating_Sequential_Processes">CSP</a>)。Go 提供了 goroutines(并发执行), channels(同步和通信), select(多路并发控制) 等特性来支持并发编程。Go 的发明者之一 Rob Pick 在他的一篇讲稿(<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html">Concurrency is not Parallelism(it&rsquo;s better)</a>)中提到：</p>
-
-<blockquote><p><a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-3">Concurrency</a>: Programming as the composition of independently executing processes.</p>
-
-<p><a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-4">Parallelism</a>: Programming as the simultaneous execution of (possibly related) computations.</p></blockquote>
-
-<p>Rob 认为并发是程序本身的一种特性，程序被分为多个可独立执行的部分，而各个可独立执行的片段通过通信手段进行协调（后文会提到），而并行则是程序的计算过程（不同的计算过程可能相关联）同时执行。</p>
-
-<p>Rob Pike 的观点是： 并发是一次处理(dealing with)很多事情，而并行是一次做(doing)很多事情.(注: 英文词汇的表达也很微妙)<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-5">原文</a>是如下：</p>
-
-<blockquote><p>Concurrency is about dealing with lots of things at once.</p>
-
-<p>Parallelism is about doing lots of things at once.</p></blockquote>
-
-<p>前者是关于程序结构的，而后者是关于程序执行的。Rob 认为：</p>
-
-<blockquote><p>Concurrency provides a way to structure a solution to solve a problem that may (but not necessarily) be parallelizable.</p></blockquote>
-
-<p>即我们可以利用并发的手段去构建一种解决方案来解决那些有可能被并行处理的问题。</p>
-
-<p>作者在本文中还<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html#slide-7">提到</a>，设计并发程序时应该将程序分为多个执行片段，使得每个片段可以独立执行。不同执行片段通过通信(Communication )来进行协调。因此 Go 的并发模型基于 CSP: C. A. R. Hoare: Communicating Sequential Processes (CACM 1978)</p>
-
-<p>作者后面还给出了一个例子来阐述他的观点，感兴趣的读者可以继续阅读：(<a href="http://concur.rspace.googlecode.com/hg/talk/concur.html">Concurrency is not Parallelism(it&rsquo;s better)</a>)</p>
-
-<h3>1.2.3 Haskell 语言中的并发与并行</h3>
-
-<p>(本小节暂未完成)</p>
-
-<h3>1.2.4 其他观点</h3>
-
-<p>另外，Intel 中文网站的一篇文章(<a href="http://software.intel.com/zh-cn/blogs/2010/11/30/400006465">原文链接</a>)曾这样写道（可能不是很权威，不过可以大致说明并发与并行的区别），</p>
-
-<p>并发（Concurrence）：指两个或两个以上的事件或活动在同一时间间隔内发生。并发的实质是单个物理 CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发可以对有限物理资源强制行使多用户共享以提高效率，如下图所示：</p>
-
-<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/intel-blog-concurrency.png" alt="并发" /></p>
-
-<p>并行（Parallelism）指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行，如下图所示：</p>
-
-<p><img src="https://raw.github.com/forhappy/A-Detailed-Cplusplus-Concurrency-Tutorial/master/images/chapter1/intel-blog-parallel.png" alt="并行" /></p>
-
-<p>因此，该文认为并发与并行的区别是：并发是一个处理器同时处理多个任务，而并行多个处理器或者是多核的处理器同时处理多个不同的任务。前者是逻辑上的同时发生（simultaneous），而后者是物理上的同时发生。</p>
-
-<p>而两者的联系是：并行的事件或活动一定是并发的，但反之并发的事件或活动未必是并行的。并行性是并发性的特例，而并发性是并行性的扩展（个人不赞同此观点）。</p>
-
-<h3>1.2.5 小节</h3>
-
-<p>本文主要讲了什么是并发以及并发和并行的联系和区别。总得来说，Joe Armstrong 的观点通俗易懂，Rob Pike 有关并发和并行的的观点也很有意思。而关于并发和并行具体的差异，本文最后介绍了一种教科书式的解释。读者可以根据自己的理解来选择认同上述某一种或几种观点。</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/16/what-is-concurrency/">Read on &rarr;</a>
+    </footer>
   
 
 
