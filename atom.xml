@@ -4,7 +4,7 @@
   <title><![CDATA[Now X Blog]]></title>
   <link href="http://forhappy.github.io/atom.xml" rel="self"/>
   <link href="http://forhappy.github.io/"/>
-  <updated>2015-05-17T11:06:26+08:00</updated>
+  <updated>2015-05-17T11:08:36+08:00</updated>
   <id>http://forhappy.github.io/</id>
   <author>
     <name><![CDATA[forhappy]]></name>
@@ -59,6 +59,11 @@
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
 
 
 <p><code>&lt;thread&gt;</code> 头文件主要声明了 <code>std::thread</code> 类，另外在 <code>std::this_thread</code> 命名空间中声明了 <code>get_id</code>，<code>yield</code>，<code>sleep_until</code> 以及 <code>sleep_for</code> 等辅助函数，本章稍微会详细介绍 <code>std::thread</code> 类及相关函数。</p>
@@ -1122,6 +1127,9 @@ Aborted (core dumped)
     <updated>2015-05-16T21:58:43+08:00</updated>
     <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
     <content type="html"><![CDATA[<h2>Section 1: The History of C++ Evolution</h2>
+
+<!-- more -->
+
 
 <h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
 
