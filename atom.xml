@@ -4,7 +4,7 @@
   <title><![CDATA[Now X Blog]]></title>
   <link href="http://forhappy.github.io/atom.xml" rel="self"/>
   <link href="http://forhappy.github.io/"/>
-  <updated>2015-05-17T11:09:32+08:00</updated>
+  <updated>2015-05-17T11:16:29+08:00</updated>
   <id>http://forhappy.github.io/</id>
   <author>
     <name><![CDATA[forhappy]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>本节将详细介绍 <code>std::thread</code> 的用法。</p>
 
 <p><code>std::thread</code> 在 <code>&lt;thread&gt;</code> 头文件中声明，因此使用 <code>std::thread</code> 需包含 <code>&lt;thread&gt;</code> 头文件。</p>
+
+<!-- more -->
+
 
 <h2><code>&lt;thread&gt;</code> 头文件摘要</h2>
 
@@ -59,11 +62,6 @@
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!-- more -->
 
 
 <p><code>&lt;thread&gt;</code> 头文件主要声明了 <code>std::thread</code> 类，另外在 <code>std::this_thread</code> 命名空间中声明了 <code>get_id</code>，<code>yield</code>，<code>sleep_until</code> 以及 <code>sleep_for</code> 等辅助函数，本章稍微会详细介绍 <code>std::thread</code> 类及相关函数。</p>
@@ -415,29 +413,29 @@ thread&amp; operator=(const thread&amp;) = delete;
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t1_id</span> <span class="o">=</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t1_id</span> <span class="o">=</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t2_id</span> <span class="o">=</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">t2_id</span> <span class="o">=</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">();</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t1&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t2&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t1&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;t2&#39;s id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2_id</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -465,25 +463,25 @@ thread&amp; operator=(const thread&amp;) = delete;
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;before starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;before starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after starting, joinable: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span><span class="p">.</span><span class="n">joinable</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -522,36 +520,36 @@ thread&amp; operator=(const thread&amp;) = delete;
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// simulate expensive operation</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// simulate expensive operation</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// simulate expensive operation</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// simulate expensive operation</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting first helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting first helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting second helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;starting second helper...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">helper2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;waiting for helpers to finish...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">helper1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">helper2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;waiting for helpers to finish...&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">helper1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">helper2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;done!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -597,31 +595,31 @@ thread&amp; operator=(const thread&amp;) = delete;
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">independentThread</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">independentThread</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting concurrent thread.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">threadCaller</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">independentThread</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">t</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">threadCaller</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Starting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">(</span><span class="n">independentThread</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">t</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Exiting thread caller.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">threadCaller</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">threadCaller</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -667,43 +665,43 @@ thread&amp; operator=(const thread&amp;) = delete;
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
 <span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">bar</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after std::swap(t1, t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after std::swap(t1, t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">t2</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">t1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">t2</span><span class="p">);</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after t1.swap(t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;after t1.swap(t2):&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 1 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread 2 id: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -758,40 +756,40 @@ thread 2 id: 2584
 <span class='line-number'>32</span>
 <span class='line-number'>33</span>
 <span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'>    <span class="cp">#include &lt;thread&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;iostream&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;chrono&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;cstring&gt;</span>
-</span><span class='line'>    <span class="cp">#include &lt;pthread.h&gt;</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;cstring&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;pthread.h&gt;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">iomutex</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">iomutex</span><span class="p">;</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
 </span><span class='line'>
-</span><span class='line'>       <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
-</span><span class='line'>       <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
-</span><span class='line'>       <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">pthread_self</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
-</span><span class='line'>       <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lk</span><span class="p">(</span><span class="n">iomutex</span><span class="p">);</span>
-</span><span class='line'>       <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Thread &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is executing at priority &quot;</span>
-</span><span class='line'>                 <span class="o">&lt;&lt;</span> <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'>   <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
+</span><span class='line'>   <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
+</span><span class='line'>   <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">pthread_self</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
+</span><span class='line'>   <span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span> <span class="n">lk</span><span class="p">(</span><span class="n">iomutex</span><span class="p">);</span>
+</span><span class='line'>   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Thread &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; is executing at priority &quot;</span>
+</span><span class='line'>             <span class="o">&lt;&lt;</span> <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">t2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">pthread_setschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="n">SCHED_FIFO</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Failed to setschedparam: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">t2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">sched_param</span> <span class="n">sch</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">int</span> <span class="n">policy</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">pthread_getschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">sch</span><span class="p">.</span><span class="n">sched_priority</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">pthread_setschedparam</span><span class="p">(</span><span class="n">t1</span><span class="p">.</span><span class="n">native_handle</span><span class="p">(),</span> <span class="n">SCHED_FIFO</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sch</span><span class="p">))</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Failed to setschedparam: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -802,103 +800,188 @@ Thread 1 is executing at priority 20
 </code></pre>
 
 <ul>
-<li><p><code>hardware_concurrency</code> [static]: 检测硬件并发特性，返回当前平台的线程实现所支持的线程并发数目，但返回值仅仅只作为系统提示(hint)。</p>
-
-<pre><code>  #include &lt;iostream&gt;
-  #include &lt;thread&gt;
-
-  int main() {
-      unsigned int n = std::thread::hardware_concurrency();
-      std::cout &lt;&lt; n &lt;&lt; " concurrent threads are supported.\n";
-  }
-</code></pre></li>
+<li><code>hardware_concurrency</code> [static]: 检测硬件并发特性，返回当前平台的线程实现所支持的线程并发数目，但返回值仅仅只作为系统提示(hint)。</li>
 </ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">hardware_concurrency</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; concurrent threads are supported.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2><code>std::this_thread</code> 命名空间中相关辅助函数介绍</h2>
 
 <ul>
-<li><p>get_id: 获取线程 ID。</p>
+<li>get_id: 获取线程 ID。</li>
+</ul>
 
-<pre><code>  #include &lt;iostream&gt;
-  #include &lt;thread&gt;
-  #include &lt;chrono&gt;
-  #include &lt;mutex&gt;
 
-  std::mutex g_display_mutex;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;mutex&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">mutex</span> <span class="n">g_display_mutex</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">this_id</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">get_id</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">g_display_mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;thread &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">this_id</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; sleeping...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">g_display_mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t1</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t2</span><span class="p">(</span><span class="n">foo</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">t1</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">t2</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-  void foo()
-  {
-      std::thread::id this_id = std::this_thread::get_id();
 
-      g_display_mutex.lock();
-      std::cout &lt;&lt; "thread " &lt;&lt; this_id &lt;&lt; " sleeping...\n";
-      g_display_mutex.unlock();
+<ul>
+<li>yield: 当前线程放弃执行，操作系统调度另一线程继续执行。</li>
+</ul>
 
-      std::this_thread::sleep_for(std::chrono::seconds(1));
-  }
 
-  int main()
-  {
-      std::thread t1(foo);
-      std::thread t2(foo);
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// &quot;busy sleep&quot; while suggesting that other threads run </span>
+</span><span class='line'><span class="c1">// for a small amount of time</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">little_sleep</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span> <span class="n">us</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">auto</span> <span class="n">start</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">auto</span> <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">us</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">do</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">yield</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">auto</span> <span class="n">start</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">little_sleep</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">auto</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;waited for &quot;</span>
+</span><span class='line'>              <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">elapsed</span><span class="p">).</span><span class="n">count</span><span class="p">()</span>
+</span><span class='line'>              <span class="o">&lt;&lt;</span> <span class="s">&quot; microseconds</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-      t1.join();
-      t2.join();
-  }
-</code></pre></li>
-<li><p>yield: 当前线程放弃执行，操作系统调度另一线程继续执行。</p>
 
-<pre><code>  #include &lt;iostream&gt;
-  #include &lt;chrono&gt;
-  #include &lt;thread&gt;
-
-  // "busy sleep" while suggesting that other threads run 
-  // for a small amount of time
-  void little_sleep(std::chrono::microseconds us)
-  {
-      auto start = std::chrono::high_resolution_clock::now();
-      auto end = start + us;
-      do {
-          std::this_thread::yield();
-      } while (std::chrono::high_resolution_clock::now() &lt; end);
-  }
-
-  int main()
-  {
-      auto start = std::chrono::high_resolution_clock::now();
-
-      little_sleep(std::chrono::microseconds(100));
-
-      auto elapsed = std::chrono::high_resolution_clock::now() - start;
-      std::cout &lt;&lt; "waited for "
-                &lt;&lt; std::chrono::duration_cast&lt;std::chrono::microseconds&gt;(elapsed).count()
-                &lt;&lt; " microseconds\n";
-  }
-</code></pre></li>
+<ul>
 <li><p>sleep_until: 线程休眠至某个指定的时刻(time point)，该线程才被重新唤醒。</p>
 
 <pre><code>  template&lt; class Clock, class Duration &gt;
   void sleep_until( const std::chrono::time_point&lt;Clock,Duration&gt;&amp; sleep_time );
 </code></pre></li>
-<li><p>sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 <code>sleep_duration</code> 所表示的时间片更长。</p>
-
-<pre><code>  template&lt; class Rep, class Period &gt;
-  void sleep_for( const std::chrono::duration&lt;Rep,Period&gt;&amp; sleep_duration );
-
-  #include &lt;iostream&gt;
-  #include &lt;chrono&gt;
-  #include &lt;thread&gt;
-
-  int main()
-  {
-      std::cout &lt;&lt; "Hello waiter" &lt;&lt; std::endl;
-      std::chrono::milliseconds dura( 2000 );
-      std::this_thread::sleep_for( dura );
-      std::cout &lt;&lt; "Waited 2000 ms\n";
-  }
-</code></pre></li>
+<li><p>sleep_for: 线程休眠某个指定的时间片(time span)，该线程才被重新唤醒，不过由于线程调度等原因，实际休眠时间可能比 <code>sleep_duration</code> 所表示的时间片更长。</p></li>
 </ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">template</span><span class="o">&lt;</span> <span class="n">class</span> <span class="n">Rep</span><span class="p">,</span> <span class="n">class</span> <span class="n">Period</span> <span class="o">&gt;</span>
+</span><span class='line'><span class="kt">void</span> <span class="n">sleep_for</span><span class="p">(</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="n">Rep</span><span class="p">,</span><span class="n">Period</span><span class="o">&gt;&amp;</span> <span class="n">sleep_duration</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &lt;iostream&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;chrono&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;thread&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello waiter&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span> <span class="n">dura</span><span class="p">(</span> <span class="mi">2000</span> <span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span> <span class="n">dura</span> <span class="p">);</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Waited 2000 ms</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>执行结果如下：</p>
@@ -1126,10 +1209,12 @@ Aborted (core dumped)
     <link href="http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features/"/>
     <updated>2015-05-16T21:58:43+08:00</updated>
     <id>http://forhappy.github.io/blog/2015/05/16/c-plus-plus-11-tech-salon-session-1-c-plus-plus-11-main-language-features</id>
-    <content type="html"><![CDATA[<h2>Section 1: The History of C++ Evolution</h2>
+    <content type="html"><![CDATA[<p>This is the CPP11 tech salon session 1.</p>
 
 <!-- more -->
 
+
+<h2>Section 1: The History of C++ Evolution</h2>
 
 <h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
 

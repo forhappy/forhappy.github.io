@@ -9,7 +9,7 @@
   <meta name="author" content="forhappy">
 
   
-  <meta name="description" content="本节将详细介绍 std::thread 的用法。 std::thread 在 &lt;thread&gt; 头文件中声明，因此使用 std::thread 需包含 &lt;thread&gt; 头文件。 &lt;thread&gt; 头文件摘要 &lt;thread&gt; 头文件声明了 std &hellip;">
+  <meta name="description" content="本节将详细介绍 std::thread 的用法。 std::thread 在 &lt;thread&gt; 头文件中声明，因此使用 std::thread 需包含 &lt;thread&gt; 头文件。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,47 +90,6 @@
   <div class="entry-content"><p>本节将详细介绍 <code>std::thread</code> 的用法。</p>
 
 <p><code>std::thread</code> 在 <code>&lt;thread&gt;</code> 头文件中声明，因此使用 <code>std::thread</code> 需包含 <code>&lt;thread&gt;</code> 头文件。</p>
-
-<h2><code>&lt;thread&gt;</code> 头文件摘要</h2>
-
-<p><code>&lt;thread&gt;</code> 头文件声明了 std::thread 线程类及 <code>std::swap</code> (交换两个线程对象)辅助函数。另外命名空间 <code>std::this_thread</code> 也声明在 <code>&lt;thread&gt;</code> 头文件中。下面是 C++11 标准所定义的 <code>&lt;thread&gt;</code> 头文件摘要：</p>
-
-<blockquote><p>参见 N3242=11-0012 草案第 30.3 节 Threads(p1133)。</p></blockquote>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">namespace</span> <span class="n">std</span> <span class="p">{</span>
-</span><span class='line'>    <span class="cp">#define __STDCPP_THREADS__ __cplusplus</span>
-</span><span class='line'>    <span class="n">class</span> <span class="kr">thread</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kr">thread</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kr">thread</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">namespace</span> <span class="n">this_thread</span> <span class="p">{</span>
-</span><span class='line'>        <span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">get_id</span><span class="p">();</span>
-</span><span class='line'>        <span class="kt">void</span> <span class="nf">yield</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">Clock</span><span class="p">,</span> <span class="n">class</span> <span class="n">Duration</span><span class="o">&gt;</span>
-</span><span class='line'>        <span class="kt">void</span> <span class="n">sleep_until</span><span class="p">(</span><span class="k">const</span> <span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="n">Clock</span><span class="p">,</span> <span class="n">Duration</span><span class="o">&gt;&amp;</span> <span class="n">abs_time</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">template</span> <span class="o">&lt;</span><span class="n">class</span> <span class="n">Rep</span><span class="p">,</span> <span class="n">class</span> <span class="n">Period</span><span class="o">&gt;</span>
-</span><span class='line'>        <span class="kt">void</span> <span class="n">sleep_for</span><span class="p">(</span><span class="k">const</span> <span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="n">Rep</span><span class="p">,</span> <span class="n">Period</span><span class="o">&gt;&amp;</span> <span class="n">rel_time</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 
 </div>
   
@@ -311,7 +270,7 @@
   </header>
 
 
-  <div class="entry-content"><h2>Section 1: The History of C++ Evolution</h2>
+  <div class="entry-content"><p>This is the CPP11 tech salon session 1.</p>
 
 </div>
   
