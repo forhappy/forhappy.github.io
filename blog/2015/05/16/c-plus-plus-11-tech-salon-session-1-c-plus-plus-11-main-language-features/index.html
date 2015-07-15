@@ -9,7 +9,7 @@
   <meta name="author" content="forhappy">
 
   
-  <meta name="description" content="This is the CPP11 tech salon session 1. Section 1: The History of C++ Evolution Section 2: Overview of C++11: The Key Features/Concepts Section 3: &hellip;">
+  <meta name="description" content="This is the CPP11 tech salon session 1. 背景 最近在公司内部组织了一系列以 C++11 为主题的技术沙龙, 在准备技术资料的同时, 我对 C++11 的新特性做了初步的整理和归纳, 形成了 C++11 系列文章. C++ 进化简史 众所周知, C++ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,41 +89,502 @@
 <!-- more -->
 
 
-<h2>Section 1: The History of C++ Evolution</h2>
+<h2>背景</h2>
 
-<h2>Section 2: Overview of C++11: The Key Features/Concepts</h2>
+<p>最近在公司内部组织了一系列以 C++11 为主题的技术沙龙, 在准备技术资料的同时, 我对 C++11 的新特性做了初步的整理和归纳, 形成了 C++11 系列文章.</p>
 
-<h2>Section 3: Core Features for Everybody</h2>
+<h2>C++ 进化简史</h2>
 
-<h3>auto(decltype) for Type Declarations</h3>
+<p>众所周知, C++ 最早于1979 年在贝尔实验室诞生, 它的发明者是 Bjarne Stroustrup. 最初的 C++ 只是相对简单的”具备了类特性的 C 语言(C With Classes)”, 但它进一步扩充和完善了 C 语言，是一种面向对象的程序设计语言。</p>
 
-<h3>Range-Based for Loops</h3>
+<p>1985 年公布的 C++ 语言 1.0 版的内容中又添加了一些重要特征: 例如, 虚函数, 函数重载, 操作符重载, 引用, 常量等。</p>
 
-<h3>“>>” as Nested Template Closer</h3>
+<p>1989 年推出的 2.0 版 C++ 语言进一步完善了原有的语言特性, 新增的内容包括: 类的保护成员, 多重继承, 对象的初始化与赋值的递归机制, 抽象类, 静态成员函数等。</p>
 
-<h3>nullptr</h3>
+<p>1993 年的 C++ 语言 3.0 版本是 C++ 语言的进一步完善，其中最重要的新特征是模板(template), 此外解决了多重继承产生的二义性问题和相应的构造函数与析构函数的处理等。</p>
 
-<h3>Enhanced enums: Strongly-typed enums</h3>
+<p>1998 年 C++ 标准(ISO/IEC14882 Standard for the C++ Programming Language)得到了国际标准化组织(ISO)和美国标准化协会(ANSI)的批准, 从而颁布了第一个国际化的 C++ 标准，该标准通常简称 ANSI C++ 或 ISO C++ 98 标准, 这一版本的 C++ 标准引入了命名空间、同时标准模板库(STL)中的容器类、通用算法类和字符串类型等组件的引入也使得 C++ 语言更为实用，C++ 标准委员会当时还规定以后每隔 5 年视情况更新 C++ 标准。</p>
 
-<h3>Uniform initialization syntax</h3>
+<p>后来 C++ 标准委员会于 2003 年通过了 C++ 标准第二版(ISO/IEC 14882:2003): 该版本是一次技术性修订，对第一版进行了整理, 具体内容包括: 修订错误、减少多义性等，但该版本没有改变语言特性, 通常简称 C++03.</p>
 
-<h3>Initializer lists</h3>
+<p>此后几年, 新的标准草案叫做 C++0x(当时 C++ 标准委员会预期新一版的 C++ 标准将会在 2010 年之前发布, 但因为新版本 C++ 标准特性太多, 所以新标准发布时间一度被延期). 终于, 在 2011年 8 月 10 日, 针对 C++0x 标准草案的投票正式结束, C++0x 毫无异议地成为正式国际标准. 先前被临时命名为 C++0x 的草案正式定名为 ISO/IEC 14882:2011, 简称 ISO C++11标准. C++11 标准将取代现行的 C++98 和 C++03 语言标准, 国际标准化组织已经于 2011 年 9 月 1 日出版发布 ISO/IEC 14882:2011.</p>
 
-<h3>Lambda Expressions</h3>
+<p>C++11 标准发布三年后, C++ 标准委员会又于 2014 年发布了 C++14 标准, C++14 相对于C++11 也是一个小版本更新. 下一个 C++ 标准预计将在 2017 年发布, 届时可能被定为 C++17 标准. 下图(选自 Herb Sutter 的个人博客)是 C++ 语言的第一个国际标准 C++98 颁布后至 C++17 标准发布之前整个 C++ 语言体系的演进.
+<img src="https://isocpp.org/files/img/wg21-timeline.png" alt="C++ 标准演化" /></p>
 
-<h3>Template Aliases</h3>
+<h2>C++11 目标</h2>
 
-<h3>Smart Pointers (shared_ptr, weak_ptr, unique_ptr)</h3>
+<p>C++ 被公认为世界上最复杂的语言之一, 同时 C++ 标准委员会也一直致力于C++语言的改进和推广,  C++11 标准的主要目标包括(但不限于):</p>
 
-<h3>Generalized Functors(std::function and std::bind)</h3>
+<ol>
+<li>让 C++ 语言更容易学习和使用, 减少人们的学习成本;</li>
+<li>维持向后兼容;</li>
+<li>提高性能;</li>
+<li>增强程序库的易用性;</li>
+<li>更好地适应现代硬件发展.</li>
+</ol>
 
-<h3>Unicode characters and strings</h3>
 
-<h3>Raw string literals</h3>
+<h2>C++11 语言关键特性介绍</h2>
 
-<h3>Regular Expression</h3>
+<h2>auto 关键字及类型自动推导</h2>
 
-<h3>Multithreading Support</h3>
+<p>auto 关键字在 C++03 以前的标准中是有特定含义的, 它表明一个变量或对象存储周期, 大部分局部变量的默认存储周期都是 auto, 因此这一关键字实际上很少被人提及, 所以 C+11 修正了 auto 关键字的语义.</p>
+
+<p>我们知道, 很多动态类型的语言都提供了类型自动推导的特性, 所谓类型自动推导, 是指在变量初始化的时候不显示地指定变量的类型, 而是由编译器或解释器自动根据初始化表达式的类型来推导变量的类型. C++ 是一门静态语言, 类型的推导交由编译器来完成, 这对于复杂类型对象的声明和定义来说, 编译器帮助我们减轻了很多工作. 我们先来看一些简单的例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">auto</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//index为整形</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">PI</span> <span class="o">=</span> <span class="mf">3.1415926</span><span class="p">;</span> <span class="c1">//双精度浮点类型</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14f</span><span class="p">;</span> <span class="c1">//单精度浮点类型</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">;</span>  <span class="c1">//字符串数组类型</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">busy</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span> <span class="c1">//布尔类型</span>
+</span><span class='line'><span class="k">auto</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="err">“</span><span class="n">hello</span><span class="err">”</span><span class="p">);</span> <span class="c1">//字符串类型</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们再来看一个稍微复杂一点的例子, 假设我们的程序里面需要一个类型为 <code>std::unordered_multimap&lt;std::string,std::string&gt;</code> 的变量来保存某个单词的多个变体, (注: 所谓单词的变体, 就是由组成该单词的字母经过重新排序后得到一个新单词, 例如 later 存在两个变体单词: alert, alter), 那么定义 <code>words</code> 变量:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">arrayunordered_multimap</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span>
+</span><span class='line'>                        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">words</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>假设我们需要已经收集了若干个单词的变体单词, 现在需查询某个单词所有的变体单词, 我们可以使用 <code>std::unordered_multimap.equal_range</code> 返回一个 <code>std::pair&lt;T, T&gt;</code>, 如果我们仍然采用 C++03 的代码, 那么只能写成:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unordered_multimap</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_multimap</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">range</span> <span class="o">=</span> <span class="n">words</span><span class="p">.</span><span class="n">equal_range</span><span class="p">(</span><span class="n">max_string</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的代码声明了一个变量 <code>range</code>, 然后给变量 <code>range</code> 赋值:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">range</span> <span class="o">=</span> <span class="n">words</span><span class="p">.</span><span class="n">equal_range</span><span class="p">(</span><span class="n">max_string</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这种写法非常繁琐, 因为程序员需要清楚地了解 <code>words.equal_range()</code> 返回值的细节, 这在一定程度上加重了开发者的负担.</p>
+
+<p>如果使用 C++11 中的 <code>auto</code> 类型自动推导, 我们可以按照以下的方式写:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">auto</span> <span class="n">range</span> <span class="o">=</span> <span class="n">words</span><span class="p">.</span><span class="n">equal_range</span><span class="p">(</span> <span class="n">max_string</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>编译器会帮助我们自动推导 <code>range</code> 变量的类型, 从而省去了由程序员自己来声明复杂类型变量的的繁琐工作.</p>
+
+<h2>基于范围的 for 循环</h2>
+
+<p>C++ 03 提供了多种方式的循环控制语句, 如 <code>for</code>, <code>while</code> 以及 <code>do { ... } while</code> 等. 其中 <code>for</code> 循环的用法最为普遍:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span><span class="p">(</span><span class="n">initial</span><span class="p">;</span> <span class="n">condition</span><span class="p">;</span> <span class="n">increment</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">statement</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于容器遍历来说, 这种方式需要编写一些额外的代码, 比如, 我们首先获取到容器的迭代器, 然后根据迭代器来编写访问容器元素的逻辑. 单纯就容器遍历来说, 这种方式未免过于繁琐, 所以 C++11 提供了一种基于范围的 <code>for</code> 循环, 基本语法如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="nl">range_declaration</span> <span class="p">:</span> <span class="n">range_expression</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">loop_statement</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中 <code>range_declaration</code> 声明了一个循环变量, 而 <code>range_expression</code> 是范围表达式, 范围表达式的值可以是一个序列容器, 如数组, <code>std::vector</code>, 也可以是一个关联容器, 如 <code>std::map</code> 和 <code>std::set</code>, 甚至自定义的类型, <code>loop_statement</code> 是遍历逻辑, 因此上述的代码可以理解为, 对于范围表达式中的每一个元素(变量)都执行 <code>loop_statement</code> 的操作. 所以此时代码变得简洁易懂, 我们以一个实际的例子来说明:</p>
+
+<p>在上例中, 我们保存了某个单词出现的所有变体, 如果我们只需要保存某个单词的变体个数, 则可以使用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">counts</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>假如我们输出每个单词的变体数母 counts, 在不采用 C++11 的情况下需要按照以下方式书写代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span>
+</span><span class='line'>     <span class="o">::</span><span class="n">const_iterator</span> <span class="n">ii</span> <span class="o">=</span> <span class="n">counts</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span><span class='line'>     <span class="n">ii</span> <span class="o">!=</span> <span class="n">counts</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="n">ii</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ii</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="n">ii</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果采用基于范围的 for 循环, 则代码简洁多了:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">count</span><span class="p">:</span> <span class="n">counts</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">count</span><span class="p">.</span><span class="n">first</span><span class="o">&lt;&lt;</span><span class="n">count</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以我们在书写容器遍历的逻辑时, 采用基于范围的 <code>for</code> 循环的方式来遍历容器可以很大程度地的简化代码. 此外, 基于范围的 <code>for</code> 循环还有另外一个好处: 我们不需要自己去判断边界, 从而减少了产生错误的机会, 因为一旦边界判断有误造成了越界后果往往非常严重.</p>
+
+<h2>多重模板关闭符(结束符) “>>”</h2>
+
+<p>在 C++03 语言标准里, 嵌套模板的关闭符是不允许写在一起的, 中间需要由空白符(空格, 制表符)隔开, 这一限制在 C++11 中被移除了. 例如以下变量声明:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">vi</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 C++98( C++03 ) 标准中是不合法的, 因为老旧的编译器会将第一个 <code>&gt;</code>(即 <code>&lt;int&gt;</code> 右边 <code>&gt;</code> 尖括号) 当做模板结束符, 这显然是很不合理的, 但之所以这么设计, 很可能是因为早期的 <code>C++</code> 标准为了降低 <code>C++</code> 编译器实现的复杂度, 故意将多重模板的结束符中间加上空白符, 因为这样一来编译器就可以很容易地将模板结束符( <code>&gt;~&gt;</code> (<code>~</code>此处表示一个空白符))和右移操作符( <code>&gt;&gt;</code> )区分开来. 但是从语法角度来讲,  编译器完全可以识别多重模板结束符和右移操作符, 所以 C++11 标准取消了这一限制, 不过为了代码兼容性, 以前的多重模板结束符仍然适用.</p>
+
+<p>所以现在 <code>std::vector&lt;std::list&lt;int&gt;&gt; vi;</code> 变量声明的方式在 C++11 中是合法的. 但值得注意的是: 如果模板参数中的确包含了右移操作符, 则需要使用小括号显示地将右移操作符和模板结束符区分开来.例如,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">2</span> <span class="o">&gt;&gt;</span> <span class="n">L1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 C++11 中也是不合法的, 需要写成:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">L1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用小括号 <code>()</code> 将 <code>n&gt;&gt;2</code> 括起来, 这样一来编译器就能够在多重模板结束符和右移操作符同时存在于一个表达式的情况下正确区分两者的含义.</p>
+
+<h2>nullptr 指针</h2>
+
+<p>NULL 在 C++03 以前的标准中由于存在二义性一直受人诟病(其实C++11标准中也没有明确地给出 NULL 的含义, C++11 标准中定义:</p>
+
+<blockquote><p>The macro NULL is an implementation-defined C++ null pointer constant(support.types))</p></blockquote>
+
+<p>也就是说, <code>NULL</code> 宏与编译器实现有关, 不同的编译器对 <code>NULL</code> 的定义不尽相同, 可能定义如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#define NULL (0L)</span>
+</span><span class='line'><span class="cp">#define NULL 0</span>
+</span><span class='line'><span class="cp">#define NULL ((void *)0)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不同的定义方式对代码的可移植性带来了困难, 例如以下代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">ptr</span><span class="p">);</span> <span class="c1">// 整形指针参数的函数重载</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">);</span> <span class="c1">// 整形参数的函数重载</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>若我们采用以下方式调用 <code>f()</code>, 不会出现任何问题,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">f</span><span class="p">(</span><span class="n">nullptr</span><span class="p">);</span> <span class="c1">// 无二义, 调用 void f(int *ptr)</span>
+</span><span class='line'><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 无二义, 调用 void f(int)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是如果将 <code>NULL</code> 作为参数传递给 <code>f()</code>, 即 <code>f(NULL);</code>, 则很有可能出现错误,因为不同编译器对 <code>NULL</code> 的定义不同, 代码变得不可移植, 因此 <code>f(NULL)</code> 具有二义性, 可能调用 <code>void f(int *ptr)</code>, 也可能调用 <code>void f(int)</code>.</p>
+
+<h2>增强的枚举类型</h2>
+
+<p>在 C++03 以前的标准中, <code>enum</code> 枚举类型本质上是整型，它们可以和整型以及其它的枚举类型相比较, 因此代码非常不安全, 另外, 旧式枚举类型的另外一个限制是枚举量被暴露在外层作用域中. 这意味着下面的代码是不能通过编译的:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">enum</span> <span class="n">Color</span> <span class="p">{</span><span class="n">RED</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">};</span>
+</span><span class='line'><span class="k">enum</span> <span class="n">Feelings</span> <span class="p">{</span><span class="n">EXCITED</span><span class="p">,</span> <span class="n">MOODY</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因为 <code>Color</code> 和 <code>Feelings</code> 中的 <code>BLUE</code>( <code>Blue</code>在描述颜色的时候是<code>蓝色</code>, 描述感情的时候表示<code>忧桑</code>)处于同一作用域中, 两者产生了冲突. C++11 引入了强类型的枚举量, 强类型枚举由 <code>enum</code> 和 <code>class</code> 两个关键字定义,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">enum</span> <span class="n">class</span> <span class="n">Color</span> <span class="p">{</span><span class="n">RED</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">};</span>
+</span><span class='line'><span class="k">enum</span> <span class="n">class</span> <span class="n">Feelings</span> <span class="p">{</span><span class="n">EXCITED</span><span class="p">,</span> <span class="n">MOODY</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>class</code> 意味着每一个枚举类型实际上都是不一样的，某一个枚举量不能和其它类型做比较. 另外, 强类型枚举类的每个枚举值作用域被限制在该枚举类中, 消除了 C++03 标准中枚举类型污染外层命名空间的问题.</p>
+
+<h2>统一初始化语法</h2>
+
+<p>C++03 提供多种变量初始化的语法, 不同的初始化行为也不尽相同, 比方说存在一个类 <code>T</code> 定义如下: <code>struct T { int m; }</code>, <code>new T</code> 和 <code>new T()</code> 两种方式是不一样的, 在不同的编译优化级别情况下(如 GCC 的 -O2,-O3), <code>new T</code> 生成的对象的 <code>m</code> 成员有可能是被随机初始化的, 而 <code>new T()</code> 则会被初始化 <code>m</code> 为 0, 此外, C++03 标准在变量初始化方面还存在其他问题, 例如简单类型对象和复杂类型的对象初始化方法不一致. 此外, 某些容器对象不能通过简单类型的数据来初始化, 一个很明显的例子是 <code>std::vector</code> 类型, 如果给定的若干初始值来初始化一个 <code>std::vector</code>, 则需要将这些元素放在数组中, 然后调用 <code>std::vector</code> 的构造函数进行初始化. 类似以下代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="n">vals</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span> <span class="p">};</span>
+</span><span class='line'><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cv</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">vals</span><span class="o">+</span><span class="mi">3</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C++11 中统一了变量初始化语法, 现在我们可以统一使用大括号对不同类型的变量进行初始化. 请看下面的例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">const</span> <span class="kt">int</span> <span class="n">val</span> <span class="p">{</span><span class="mi">5</span><span class="p">};</span> <span class="c1">//简单类型变量初始化</span>
+</span><span class='line'><span class="kt">int</span> <span class="n">a</span><span class="p">[]</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">val</span><span class="o">*</span><span class="mi">2</span><span class="p">};</span> <span class="c1">//原生数组初始化</span>
+</span><span class='line'><span class="k">const</span> <span class="n">Point</span> <span class="n">point</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">};</span> <span class="c1">//简单对象初始化</span>
+</span><span class='line'><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cv</span><span class="p">{</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">20</span><span class="p">,</span><span class="n">val</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">class</span> <span class="n">Widget</span> <span class="p">{</span>
+</span><span class='line'><span class="nl">public</span><span class="p">:</span>
+</span><span class='line'>    <span class="c1">// const成员初始化</span>
+</span><span class='line'>    <span class="n">Widget</span><span class="p">()</span><span class="o">:</span> <span class="n">data</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span> <span class="p">{}</span>
+</span><span class='line'><span class="nl">private</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// const 指针初始化.</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">new</span> <span class="k">const</span> <span class="kt">float</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</span><span class='line'>                     <span class="p">{</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>初始化列表</h2>
+
+<p>C++11 的初始化列表特性是从 C 语言继承过来的，简单来说就是: 结构体或者数组可以使用大括号包含的参数列表来初始化(按照定义的顺序依次初始化)。</p>
+
+<p>C++11 使用模板 <code>std::initializer_list</code> 来实现使用列表初始化这一技术，我们可以使用 <code>std::initializer_list</code> 来给构造函数或者其他函数传递参数。</p>
+
+<p>请看以下例子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">simple_list</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+</span><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">strs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;I&quot;</span><span class="p">,</span> <span class="err">“</span><span class="n">U</span><span class="s">&quot;};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面两种初始化的方法在 C++03 及以前的标准中是不合法的, 但是在 C++11 中, 由于大括号包裹的元素列表是可以被转换成初始化列表 <code>std::initializer_list</code> 的, 而初始化列表可以作为参数传递给构造函数, 所以我们可以直接将一个由大括号包裹的列表传递给某个对象的初始化方法中.</p>
+
+<p>例如以下代码, 我们利用 <code>std::vector</code> 模拟了一个简单链表 Simple List: <code>SList</code>, 该链表的一个构造函数签名是:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">SList</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">x</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以, 由我们先前所提到的大括号包裹的元素列表可以被转换成初始化列表 <code>std::initializer_list</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">template</span> <span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">class</span> <span class="n">SList</span> <span class="p">{</span>
+</span><span class='line'><span class="nl">public</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">SList</span><span class="p">()</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="n">SList</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">x</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span><span class="o">=</span><span class="n">begin</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="n">it</span><span class="o">!=</span><span class="n">end</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="o">++</span><span class="n">it</span><span class="p">){</span>
+</span><span class='line'>       <span class="n">items_</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">ite</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="nl">private</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">items_</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以我们可以按照一下方法来构造 SList,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">std</span><span class="o">::</span><span class="n">SList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mlist</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>该方法会调用构造函数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">SList</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">x</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C++11 引入 <code>std::initializer_list</code> 为我们带来了更多的便利, 我们可以讲 <code>std::initializer_list</code> 作为参数传递给普通(成员)函数, 例如定义了 <code>SList</code> 的 <code>append</code> 函数:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="n">append</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">i</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们可以按照 <code>append({1, 2, 3, 4, 5});</code> 这样的方式调用 <code>append</code> 函数.</p>
+
+<h2>Lambda 表达式</h2>
+
+<p>在 C++03 中使用标准库的一些算法函数, 比如 <code>std::sort</code> 和 <code>std::find</code>，我们希望能够在算法函数调用的附近定义一个临时函数（又称谓词函数，predicate function）。由于语言本身允许在函数内部定义类，可以考虑使用函数对象，然而这通常既麻烦又冗赘. 因此, C++11 标准中引入了 Lambda 表达式, Lambda 表达式有时候也称为闭包(Clojure), 闭包是函数式编程中最常见的概念之一.</p>
+
+<p>C++11中完整定义 Lambda 表达式如下所述:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">capture_block</span><span class="p">](</span><span class="n">parameters</span><span class="p">)</span> <span class="n">mutable</span>
+</span><span class='line'><span class="n">exception_specification</span> <span class="o">-&gt;</span> <span class="n">return_type</span>
+</span><span class='line'><span class="p">{</span> <span class="n">body</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中 <code>capture_block</code> 是变量捕获声明, 一般来说可以传值捕获(<code>=</code>), 也可以传引用捕获(<code>&amp;</code>),例如 <code>[x, &amp;y]</code> 说明变量 <code>x</code> 传值捕获, 而 <code>&amp;y</code> 则说明变量 <code>y</code> 传引用捕获; <code>[=, &amp;x]</code> 表示 <code>x</code> 传引用捕获, 剩下的变量则以传值捕获; <code>[&amp;, x]</code> 表示 <code>x</code> 传值捕获, 而其他的值则传引用捕获.</p>
+
+<p><code>parameters</code> 参数是 Lambda 表达式的参数, <code>mutable</code> 是指当 Lambada 表达式对外层的变量以传值捕获时, 我们可以在 Lambda 表达式中修改变量的值(但是修改只限于 Lambda 表达式内部, 被修改的值不能被传递出来, 因此也不会影响外层变量的值). <code>exception_specification</code> 对于异常的一些声明, 例如 <code>noexcept</code> 说明 Lambda 不会抛出异常. Lambda 表达式还可以指定返回值, 但是不存在返回值的时候也可以省略.</p>
+
+<p>根据 Lambda 表达式的定义, 我们还可以简化 Lambda 表达式的写法, 如果 Lambda 表达式不会修改按值捕获的变量, 则可以去掉 <code>mutable</code>, 如果使用默认的异常声明, 则可以去掉 <code>exception_specification</code>, 那么此时可以简化为:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">capture_block</span><span class="p">](</span><span class="n">parameters</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span> <span class="n">return_type</span>
+</span><span class='line'><span class="p">{</span> <span class="n">body</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 Lambda 表达式没有返回值, 那么可以省略 <code>return_type</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">capture_block</span><span class="p">](</span><span class="n">parameters</span><span class="p">)</span> <span class="p">{</span> <span class="n">body</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果Lambda表达式没有参数, 那么它的参数也可以省略:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="p">[</span><span class="n">capture_block</span><span class="p">]</span> <span class="p">{</span> <span class="n">body</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后, 捕获声明也可以为空(即不捕获外部变量), 但中括号也不能省略, Lambda 函数体也可以为空, 表示Lambda 函数不做任何操作, 但是花括号不能省略. 所以最简单的Lambda表达式为 auto f = []{}; 此后 可以f() 来调用该Lambda表达式(不做任何操作).</p>
+
+<p>前面介绍了Lambda 表达式的语法, 我们来看看具体的 Lambda表达式:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">auto</span> <span class="n">f</span> <span class="o">=</span> <span class="p">[]{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello”; };</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>调用 <code>f()</code> 将输出 <code>Hello</code>.</p>
+
+<p>下面的 Lambda 表达式传值捕获外层变量 <code>x</code>, <code>y</code>, 并返回 <code>2x + y</code> 的和.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">auto</span> <span class="n">customAdd</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span>
+</span><span class='line'><span class="p">{</span> <span class="kt">int</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span> <span class="k">return</span> <span class="n">z</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外, 在成员函数中如果需要用到对象的 <code>this</code> 指针，则必须显式的将 <code>this</code> 传入 Lambda 函数，否则成员函数中的 Lambda 函数无法使用任何该对象的参数或函数。例如:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">auto</span> <span class="n">customFunc</span> <span class="o">=</span> <span class="p">[</span><span class="n">this</span><span class="p">]()</span>
+</span><span class='line'><span class="p">{</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">SomePrivateMemberFunction</span><span class="p">();</span> <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>模板别名</h2>
+
+<p>C++11 中引入了模板别名概念, 例如我们可以这样来定义模板别名:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">template</span><span class="o">&lt;</span><span class="kr">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">MyVec</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">MyAllocator</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// v 的类型为 std::vector&lt;int, MyAllocator&gt;</span>
+</span><span class='line'><span class="n">MyVec</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">StrArr</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">N</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">//类型为 std::array&lt;std::string, 15&gt;</span>
+</span><span class='line'><span class="n">StrArr</span><span class="o">&lt;</span><span class="mi">15</span><span class="o">&gt;</span> <span class="n">sa</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在没有使用模板化的场合下, 模板别名和 <code>typedef</code> 的含义相同, 例如我们可以按照以下两种定义一个整数类形的 <code>Hash</code> 集合:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">IntHash</span><span class="p">;</span>
+</span><span class='line'><span class="n">using</span> <span class="n">IntHash</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>更复杂的类型声明, 以下两条语句声明了类型相同的函数指针:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">CallBackPtr</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span>
+</span><span class='line'><span class="n">using</span> <span class="n">CallBackPtr</span> <span class="o">=</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上内容是我们本次分享的主要内容, 我会在下一篇文章中继续分享 C++11 的主题, 包括智能指针, 正则表达式, 多线程与并发, C++11 标准库等内容, 欢迎大家一起交流.</p>
 </div>
 
 
